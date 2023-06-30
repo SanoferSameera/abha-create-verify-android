@@ -84,14 +84,6 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/proceedButton"
-            android:layout_centerInParent="true"
-            android:visibility="invisible"/>
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/or"
             android:layout_width="wrap_content"
@@ -118,21 +110,21 @@
             android:textStyle="bold" />
 
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/createDefaultAbhaAddressButton"
             android:layout_centerInParent="true"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/abhaMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/progressBar2"
+            android:layout_below="@id/createDefaultAbhaAddressButton"
             android:layout_marginBottom="-30dp"
             android:textColor="@color/green"
             android:textSize="12sp"
             android:textStyle="normal" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

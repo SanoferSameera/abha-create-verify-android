@@ -36,7 +36,7 @@ class AbhaAddressActivity : AppCompatActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            binding.progressBar1.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
                             resource.data?.let { data ->
                                 if(data == "true") {
                                     PatientSubject().setABHAAddress(binding.editTextAbhaAddress.text.toString())
@@ -45,11 +45,11 @@ class AbhaAddressActivity : AppCompatActivity() {
                             }
                         }
                         Status.ERROR -> {
-                            binding.progressBar1.visibility= View.GONE
+                            binding.progressBar.visibility= View.GONE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
                         Status.LOADING -> {
-                            binding.progressBar1.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -61,18 +61,18 @@ class AbhaAddressActivity : AppCompatActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            binding.progressBar2.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
                             resource.data?.let { data ->
-                                PatientSubject().setABHAAddress(data)
-                                binding.abhaMessage.text = "Abha Address created successfully!  Your ABHA Address : "
+                                PatientSubject().setABHAAddress(data.abhaAddress)
+                                binding.abhaMessage.text = "Abha Address created successfully! Your ABHA Address : ${data.abhaAddress}"
                             }
                         }
                         Status.ERROR -> {
-                            binding.progressBar2.visibility= View.GONE
+                            binding.progressBar.visibility= View.GONE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
                         Status.LOADING -> {
-                            binding.progressBar2.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.VISIBLE
                         }
                     }
                 }

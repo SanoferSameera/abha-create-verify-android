@@ -55,7 +55,7 @@ class CreateAbhaActivity : AppCompatActivity() {
         val dialogView = inflater.inflate(R.layout.popup_terms_conditions, null)
         dialogBuilder.setView(dialogView)
 
-        val termsConditionsTextView = dialogView.findViewById<TextView>(R.id.termsConditionsTextView)
+        val termsConditionsTextView = dialogView.findViewById<TextView>(R.id.tcTextView)
         termsConditionsTextView.movementMethod = ScrollingMovementMethod()
 
         dialogBuilder.setPositiveButton("Accept") { dialog, _ ->

@@ -39,6 +39,7 @@ class AbhaOTPActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             binding.correctOTPText.visibility = View.VISIBLE
                             resource.data?.let { data ->
+                                PatientSubject().setMobile(intent.getStringExtra("mobileNumber")!!)
                                 val intent = Intent(this, PatientBioActivity::class.java)
                                 startActivity(intent)
                             }

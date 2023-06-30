@@ -44,6 +44,7 @@ class AbhaMobileActivity : AppCompatActivity() {
                                 }
                                 else {
                                     val intent = Intent(this, AbhaOTPActivity::class.java)
+                                    intent.putExtra("mobileNumber", mobileNumber)
                                     startActivity(intent)
                                 }
                             }

@@ -63,6 +63,16 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/errorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proceedButton"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/red"
+            android:textSize="10sp" />
+
         <LinearLayout
             android:id="@id/termsConditionsLayout"
             android:layout_width="match_parent"
@@ -99,16 +109,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/errorMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/proceedButton"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:textColor="@color/red"
-            android:textSize="10sp" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

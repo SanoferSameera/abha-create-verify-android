@@ -2,6 +2,7 @@ package com.example.abha_create_verify_android.data.api
 
 import com.example.abha_create_verify_android.data.model.CreateABHAResp
 import com.example.abha_create_verify_android.data.model.CreateAbhaAddressReq
+import com.example.abha_create_verify_android.data.model.CreateDefaultAbhaAddressResp
 import com.example.abha_create_verify_android.data.model.GenerateAadhaarOTPReq
 import com.example.abha_create_verify_android.data.model.GenerateAadhaarOTPResp
 import com.example.abha_create_verify_android.data.model.GenerateMobileOTPReq
@@ -35,6 +36,6 @@ interface ApiService {
     suspend fun createAbhaAddress(@Body requestBody: CreateAbhaAddressReq): Response<String>
 
     @GET("hiprovider/v1/account/update/phr-address")
-    suspend fun createDefaultAbhaAddress(): Response<String>
+    suspend fun createDefaultAbhaAddress(): Response<CreateDefaultAbhaAddressResp>
 
 }
