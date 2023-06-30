@@ -9,7 +9,6 @@ import com.example.abha_create_verify_android.data.model.GenerateMobileOTPReq
 import com.example.abha_create_verify_android.data.model.GenerateMobileOTPResp
 import com.example.abha_create_verify_android.data.model.VerifyAadhaarOTPResp
 import com.example.abha_create_verify_android.data.model.VerifyOTPReq
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

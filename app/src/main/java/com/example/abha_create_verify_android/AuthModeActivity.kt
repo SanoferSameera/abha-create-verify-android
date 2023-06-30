@@ -8,8 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.data.model.GenerateAadhaarOTPReq
@@ -83,7 +82,8 @@ class AuthModeActivity : AppCompatActivity() {
     private fun moveToAadhaarOTP() {
         var mobileNumber : String
         val aadhaarNumber = intent.getStringExtra("aadhaarNumber")
-        viewModel.generateAadhaarOtp(GenerateAadhaarOTPReq(aadhaarNumber.toString())).observe(this, Observer {
+        viewModel.generateAadhaarOtp(GenerateAadhaarOTPReq(aadhaarNumber.toString())).observe(this
+        ) {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -95,24 +95,26 @@ class AuthModeActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                     }
+
                     Status.ERROR -> {
-                        binding.progressBar.visibility= View.GONE
+                        binding.progressBar.visibility = View.GONE
                         Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                     }
+
                     Status.LOADING -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                 }
             }
-        })
+        }
 
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(
+        viewModel = ViewModelProvider(
             this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
     }
 
 

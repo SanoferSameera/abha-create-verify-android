@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
-import com.example.abha_create_verify_android.data.model.VerifyAadhaarOTPResp
 import com.example.abha_create_verify_android.data.model.VerifyOTPReq
 import com.example.abha_create_verify_android.databinding.ActivityAbhaOtpactivityBinding
 import com.example.abha_create_verify_android.utils.Status
@@ -32,37 +30,40 @@ class AbhaOTPActivity : AppCompatActivity() {
 
         binding.proceedButton.setOnClickListener {
             binding.incorrectOTPText.visibility = View.GONE
-            viewModel.verifyMobileOtp(VerifyOTPReq(binding.OTPEditText.text.toString())).observe(this, Observer {
+            viewModel.verifyMobileOtp(VerifyOTPReq(binding.OTPEditText.text.toString())).observe(this
+            ) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
                             binding.correctOTPText.visibility = View.VISIBLE
-                            resource.data?.let { data ->
+                            resource.data?.let {
                                 PatientSubject().setMobile(intent.getStringExtra("mobileNumber")!!)
                                 val intent = Intent(this, PatientBioActivity::class.java)
                                 startActivity(intent)
                             }
                         }
+
                         Status.ERROR -> {
-                            binding.progressBar.visibility= View.GONE
+                            binding.progressBar.visibility = View.GONE
                             binding.incorrectOTPText.visibility = View.VISIBLE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
+
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
                         }
                     }
                 }
-            })
+            }
         }
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(
+        viewModel = ViewModelProvider(
             this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

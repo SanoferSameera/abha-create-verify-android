@@ -33,12 +33,11 @@ class CreateAbhaActivity : AppCompatActivity() {
         binding.proceedButton.setOnClickListener {
             val aadhaar = binding.aadhaarEditText.text.toString()
             val checkbox = findViewById<CheckBox>(R.id.checkbox)
-            println("sameera" + checkbox.isChecked)
             if(aadhaar.isEmpty() || aadhaar.length != 12) {
-                binding.errorMsg.text = "Aadhaar number should have 12 digit"
+                binding.errorMsg.text = String.format("Aadhaar number should have 12 digit")
             }
             else if(!checkbox.isChecked) {
-                binding.errorMsg.text = "Checkbox needs to be checked"
+                binding.errorMsg.text = String.format("Checkbox needs to be checked")
             }
             else {
                 val intent = Intent(this, AuthModeActivity::class.java)
@@ -61,16 +60,15 @@ class CreateAbhaActivity : AppCompatActivity() {
         dialogBuilder.setPositiveButton("Accept") { dialog, _ ->
             val checkbox = findViewById<CheckBox>(R.id.checkbox)
             checkbox.isChecked = true
-            // Handle accept button click action
             dialog.dismiss()
         }
 
         val alertDialog = dialogBuilder.create()
-        alertDialog.setView(dialogView, 0, 0, 0, 0) // Set the custom view again to apply ScrollView
+        alertDialog.setView(dialogView, 0, 0, 0, 0)
 
         alertDialog.setOnShowListener {
             val scrollView = dialogView.findViewById<ScrollView>(R.id.scrollView)
-            scrollView.fullScroll(ScrollView.FOCUS_UP) // Scroll to the top initially
+            scrollView.fullScroll(ScrollView.FOCUS_UP)
         }
 
         alertDialog.show()

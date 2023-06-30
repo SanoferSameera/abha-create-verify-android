@@ -54,7 +54,7 @@ class PatientSubject {
 
     fun setABHAAddress(abhaAddress: String){
         patientSubject.observations = patientSubject.observations.toMutableMap().apply {
-            put("ABHA addres", abhaAddress)
+            put("ABHA address", abhaAddress)
         }
     }
 

@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.data.model.GenerateMobileOTPReq
@@ -31,42 +30,43 @@ class AbhaMobileActivity : AppCompatActivity() {
 
         binding.proceedButton.setOnClickListener {
             val mobileNumber = binding.mobileEditText.text.toString()
-            viewModel.checkAndGenerateMobileOtp(GenerateMobileOTPReq(mobileNumber)).observe(this, Observer {
+            viewModel.checkAndGenerateMobileOtp(GenerateMobileOTPReq(mobileNumber)).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
                             resource.data?.let { data ->
-                                if(data.mobileLinked == "true") {
+                                if (data.mobileLinked == "true") {
                                     val intent = Intent(this, PatientBioActivity::class.java)
                                     PatientSubject().setMobile(mobileNumber)
                                     startActivity(intent)
-                                }
-                                else {
+                                } else {
                                     val intent = Intent(this, AbhaOTPActivity::class.java)
                                     intent.putExtra("mobileNumber", mobileNumber)
                                     startActivity(intent)
                                 }
                             }
                         }
+
                         Status.ERROR -> {
-                            binding.progressBar.visibility= View.GONE
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
+
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
                         }
                     }
                 }
-            })
+            }
         }
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(
+        viewModel = ViewModelProvider(
             this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

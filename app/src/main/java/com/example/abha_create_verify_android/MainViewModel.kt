@@ -92,7 +92,7 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         }
     }
 
-    fun createHealthIdByAdhaarOtp() = liveData(Dispatchers.IO) {
+    fun createHealthIdByAadhaarOtp() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
             val res = mainRepository.createHealthIdByAdhaarOtp()

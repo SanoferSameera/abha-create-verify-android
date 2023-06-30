@@ -3,7 +3,6 @@ package com.example.abha_create_verify_android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.example.abha_create_verify_android.databinding.ActivityCreateAbhaBinding
 import com.example.abha_create_verify_android.databinding.ActivityDemographicBinding
 
 class DemographicActivity : AppCompatActivity() {
