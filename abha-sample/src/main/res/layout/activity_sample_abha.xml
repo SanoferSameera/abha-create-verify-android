@@ -17,35 +17,16 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/aadhaarTextInputLayout"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
             android:text="Enter Json"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/aadhaarTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="Enter Json">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/aadhaarEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="12" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/aadhaarTextInputLayout"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="Proceed"
