@@ -32,7 +32,7 @@ interface ApiService {
     suspend fun createHealthIdByAdhaarOtp(): Response<CreateABHAResp>
 
     @POST("hiprovider/v2/account/phr-linked")
-    suspend fun createAbhaAddress(@Body requestBody: CreateAbhaAddressReq): Response<String>
+    suspend fun createAbhaAddress(@Body requestBody: CreateAbhaAddressReq): Response<Unit>
 
     @GET("hiprovider/v1/account/update/phr-address")
     suspend fun createDefaultAbhaAddress(): Response<CreateDefaultAbhaAddressResp>

@@ -50,6 +50,13 @@
         • I authorize the sharing of all my health records with healthcare provider(s) for the purpose of providing healthcare services to me during this encounter.\n\n
 
         • I consent to the anonymization and subsequent use of my government health records for public health purposes.</string>
+    <string name="abha_number_created">Your ABHA Number has been successfully created. Please find your assigned ABHA Number: %s</string>
+    <string name="create_abha_address">Would you like to create your own custom ABHA address? \n\nIf you would like to create your own ABHA address, please tap \'Yes\'. In case you choose \'No\', the system will generate the following default ABHA address: xx-xxxx-xxxx-xxxx@sbx.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="finish">Finish</string>
+    <string name="abha_address_created">Your ABHA Address has been successfully created.</string>
+    <string name="your_details_below">Please find your details below:</string>
 
 
 </resources>

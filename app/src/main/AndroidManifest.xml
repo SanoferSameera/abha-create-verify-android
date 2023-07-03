@@ -12,6 +12,15 @@
         android:theme="@style/Theme.Abhacreateverifyandroid"
         tools:targetApi="31">
         <activity
+            android:name=".AbhaAddressSuccessActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Abhacreateverifyandroid.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".CustomAbhaAddressActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Abhacreateverifyandroid.NoActionBar" />
+        <activity
             android:name=".AbhaAddressActivity"
             android:exported="false"
             android:theme="@style/Theme.Abhacreateverifyandroid.NoActionBar" />
