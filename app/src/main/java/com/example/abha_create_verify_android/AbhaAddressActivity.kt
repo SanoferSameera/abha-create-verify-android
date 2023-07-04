@@ -26,6 +26,8 @@ class AbhaAddressActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAbha)
         supportActionBar?.title = resources.getString(R.string.create_abha)
 
+        binding.abhaAddressPrompt.text = String.format(binding.abhaAddressPrompt.text.toString(), getString(R.string.abha_suffix))
+
         val abhaNumberVal = intent.getStringExtra("healthIdNumber")
         binding.abhaNumberCreated.text = String.format(binding.abhaNumberCreated.text.toString(),abhaNumberVal)
 

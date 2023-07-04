@@ -34,7 +34,7 @@ class CustomAbhaAddressActivity : AppCompatActivity() {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            PatientSubject().setABHAAddress(binding.editTextAbhaAddress.text.toString())
+                            PatientSubject().setABHAAddress(binding.editTextAbhaAddress.text.toString() + getString(R.string.abha_suffix))
                             val intent = Intent(this, AbhaAddressSuccessActivity::class.java)
                             startActivity(intent)
                         }
