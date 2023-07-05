@@ -1,0 +1,30 @@
+##create a github workflow to release into jitpack using build.gradle
+name: Release
+
+on:
+  push:
+    branches:
+      - abha-creation-library
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Publish to JitPack
+        run: |
+          curl -L https://github.com/jitpack/jitpack-cli/releases/latest/download/jitpack-cli-2.2.4-all.jar --output jitpack-cli.jar
+          java -jar jitpack-cli.jar publish --build --no-logs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
