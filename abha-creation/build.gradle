@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.library'
+    // uncomment below line to run as application
+    // id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
@@ -64,6 +66,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
 }
 
+//comment below lines to run as application
 afterEvaluate {
     publishing {
         publications {
@@ -72,7 +75,7 @@ afterEvaluate {
 
                 groupId = 'com.github.SanoferSameera'
                 artifactId = 'abha-creation'
-                version = '1.0'
+                version = '1.1'
             }
         }
     }
