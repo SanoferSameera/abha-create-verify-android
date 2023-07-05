@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "abha-create-verify-android"
 include ':app'
-include ':abha-creation'

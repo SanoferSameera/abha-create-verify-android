@@ -20,7 +20,7 @@ jobs:
         run: ./gradlew build
       - name: Publish to JitPack
         run: |
-          curl -L https://github.com/jitpack/jitpack-cli/releases/latest/download/jitpack-cli-2.2.4-all.jar --output jitpack-cli.jar
+          wget -O jitpack-cli.jar https://github.com/jitpack/jitpack-cli/releases/latest/download/jitpack-cli-2.2.4-all.jar
           java -jar jitpack-cli.jar publish --build --no-logs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
