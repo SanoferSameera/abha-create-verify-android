@@ -1,4 +1,4 @@
-package com.example.abha_create_verify_android.data.api
+package com.example.abha_sample.data.api
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
