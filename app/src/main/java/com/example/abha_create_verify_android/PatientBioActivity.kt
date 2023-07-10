@@ -31,7 +31,7 @@ class PatientBioActivity : AppCompatActivity() {
         binding.patientName.text = patientSubject.firstName
         binding.dateOfBirth.text = patientSubject.dateOfBirth
         binding.gender.text = patientSubject.gender
-        binding.phoneNumber.text = patientSubject.observations["Phone number"]
+        binding.phoneNumber.text = patientSubject.phoneNumber
         binding.address.text = patientSubject.address
         binding.proceedButton.setOnClickListener {
             viewModel.createHealthIdByAadhaarOtp().observe(this) {
