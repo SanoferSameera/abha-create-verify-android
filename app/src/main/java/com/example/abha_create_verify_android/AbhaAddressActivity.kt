@@ -3,51 +3,56 @@ package com.example.abha_create_verify_android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
-import com.example.abha_create_verify_android.data.model.VerifyOTPReq
-import com.example.abha_create_verify_android.databinding.ActivityAadhaarOtpactivityBinding
+import com.example.abha_create_verify_android.databinding.ActivityAbhaAddressBinding
 import com.example.abha_create_verify_android.utils.Status
 
-class AadhaarOTPActivity : AppCompatActivity() {
+class AbhaAddressActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAadhaarOtpactivityBinding
+    private lateinit var binding: ActivityAbhaAddressBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAadhaarOtpactivityBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_abha_address)
+        binding = ActivityAbhaAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
 
         setSupportActionBar(binding.toolbarAbha)
         supportActionBar?.title = resources.getString(R.string.create_abha)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.proceedButton.setOnClickListener {
-            binding.incorrectOTPText.visibility = View.GONE
-            viewModel.verifyAadhaarOtp(VerifyOTPReq(binding.aadhaarOTPEditText.text.toString())).observe(this
-            ) {
+        binding.abhaAddressPrompt.text = String.format(binding.abhaAddressPrompt.text.toString(), getString(R.string.abha_suffix))
+
+        val abhaNumberVal = intent.getStringExtra("healthIdNumber")
+        binding.abhaNumberCreated.text = String.format(binding.abhaNumberCreated.text.toString(),abhaNumberVal)
+
+
+        binding.createCustom.setOnClickListener {
+            val intent = Intent(this, CustomAbhaAddressActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.createDefault.setOnClickListener {
+            viewModel.createDefaultAbhaAddress().observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.correctOTPText.visibility = View.VISIBLE
                             resource.data?.let { data ->
-                                val intent = Intent(this, AbhaMobileActivity::class.java)
-                                PatientSubject().setDemographics(data)
+                                PatientSubject().setABHAAddress(data.abhaAddress)
+                                val intent = Intent(this, AbhaAddressSuccessActivity::class.java)
                                 startActivity(intent)
-                                finish()
                             }
                         }
 
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.incorrectOTPText.visibility = View.VISIBLE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
 
@@ -60,7 +65,6 @@ class AadhaarOTPActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
@@ -68,12 +72,16 @@ class AadhaarOTPActivity : AppCompatActivity() {
         )[MainViewModel::class.java]
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            // Handle back button click here
-            onBackPressedDispatcher.onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmation")
+            .setMessage("Are you sure you want to go back to the home screen?")
+            .setPositiveButton("Yes") { _, _ ->
+                val intent = Intent(this, CreateAbhaActivity::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
+
 }

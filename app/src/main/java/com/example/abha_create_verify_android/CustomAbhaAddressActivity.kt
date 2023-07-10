@@ -9,18 +9,19 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
-import com.example.abha_create_verify_android.data.model.VerifyOTPReq
-import com.example.abha_create_verify_android.databinding.ActivityAadhaarOtpactivityBinding
+import com.example.abha_create_verify_android.data.model.CreateAbhaAddressReq
+import com.example.abha_create_verify_android.databinding.ActivityCustomAbhaAddressBinding
 import com.example.abha_create_verify_android.utils.Status
 
-class AadhaarOTPActivity : AppCompatActivity() {
+class CustomAbhaAddressActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAadhaarOtpactivityBinding
+    private lateinit var binding: ActivityCustomAbhaAddressBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAadhaarOtpactivityBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_custom_abha_address)
+        binding = ActivityCustomAbhaAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
 
@@ -29,25 +30,19 @@ class AadhaarOTPActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.proceedButton.setOnClickListener {
-            binding.incorrectOTPText.visibility = View.GONE
-            viewModel.verifyAadhaarOtp(VerifyOTPReq(binding.aadhaarOTPEditText.text.toString())).observe(this
+            viewModel.createAbhaAddress(CreateAbhaAddressReq(binding.editTextAbhaAddress.text.toString(),binding.checkbox.isChecked.toString())).observe(this
             ) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.correctOTPText.visibility = View.VISIBLE
-                            resource.data?.let { data ->
-                                val intent = Intent(this, AbhaMobileActivity::class.java)
-                                PatientSubject().setDemographics(data)
-                                startActivity(intent)
-                                finish()
-                            }
+                            PatientSubject().setABHAAddress(binding.editTextAbhaAddress.text.toString() + getString(R.string.abha_suffix))
+                            val intent = Intent(this, AbhaAddressSuccessActivity::class.java)
+                            startActivity(intent)
                         }
 
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.incorrectOTPText.visibility = View.VISIBLE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
 
@@ -59,7 +54,6 @@ class AadhaarOTPActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
@@ -76,4 +70,5 @@ class AadhaarOTPActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

@@ -3,6 +3,6 @@
     <string-array name="menu_items">
         <item>Please choose</item>
         <item>Aadhaar Demographics</item>
-        <item>aadhaar OTP</item>
+        <item>Aadhaar OTP</item>
     </string-array>
 </resources>

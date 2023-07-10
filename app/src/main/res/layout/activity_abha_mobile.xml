@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthModeActivity">
+    tools:context=".AbhaMobileActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -36,30 +36,38 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinnerMode"
+            android:layout_above="@+id/aadhaarTextInputLayout"
             android:layout_marginBottom="1dp"
-            android:text="@string/choose_auth_mode"
+            android:text="@string/mobile_number_required_for_abha_creation"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinnerMode"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aadhaarTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
-            android:entries="@array/menu_items" />
+            android:hint="@string/enter_mobile_number"
+            app:boxBackgroundColor="@color/box_color">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mobileEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="number"
+                android:maxLength="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerMode"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/aadhaarTextInputLayout"
+            android:layout_marginTop="30dp"
             android:background="@color/yellow"
             android:gravity="center"
             android:text="@string/proceed"
@@ -74,6 +82,5 @@
             android:layout_below="@+id/proceedButton"
             android:layout_centerInParent="true"
             android:visibility="invisible"/>
-
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

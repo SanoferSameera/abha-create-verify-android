@@ -9,18 +9,18 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
-import com.example.abha_create_verify_android.data.model.VerifyOTPReq
-import com.example.abha_create_verify_android.databinding.ActivityAadhaarOtpactivityBinding
+import com.example.abha_create_verify_android.data.model.GenerateMobileOTPReq
+import com.example.abha_create_verify_android.databinding.ActivityAbhaMobileBinding
 import com.example.abha_create_verify_android.utils.Status
 
-class AadhaarOTPActivity : AppCompatActivity() {
+class AbhaMobileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAadhaarOtpactivityBinding
+    private lateinit var binding: ActivityAbhaMobileBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAadhaarOtpactivityBinding.inflate(layoutInflater)
+        binding = ActivityAbhaMobileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
 
@@ -29,25 +29,27 @@ class AadhaarOTPActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.proceedButton.setOnClickListener {
-            binding.incorrectOTPText.visibility = View.GONE
-            viewModel.verifyAadhaarOtp(VerifyOTPReq(binding.aadhaarOTPEditText.text.toString())).observe(this
-            ) {
+            val mobileNumber = binding.mobileEditText.text.toString()
+            viewModel.checkAndGenerateMobileOtp(GenerateMobileOTPReq(mobileNumber)).observe(this) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.correctOTPText.visibility = View.VISIBLE
                             resource.data?.let { data ->
-                                val intent = Intent(this, AbhaMobileActivity::class.java)
-                                PatientSubject().setDemographics(data)
-                                startActivity(intent)
-                                finish()
+                                if (data.mobileLinked == "true") {
+                                    val intent = Intent(this, PatientBioActivity::class.java)
+                                    PatientSubject().setMobile(mobileNumber)
+                                    startActivity(intent)
+                                } else {
+                                    val intent = Intent(this, AbhaOTPActivity::class.java)
+                                    intent.putExtra("mobileNumber", mobileNumber)
+                                    startActivity(intent)
+                                }
                             }
                         }
 
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.incorrectOTPText.visibility = View.VISIBLE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
 
@@ -59,7 +61,6 @@ class AadhaarOTPActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(

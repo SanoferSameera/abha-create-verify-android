@@ -10,17 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.data.model.VerifyOTPReq
-import com.example.abha_create_verify_android.databinding.ActivityAadhaarOtpactivityBinding
+import com.example.abha_create_verify_android.databinding.ActivityAbhaOtpactivityBinding
 import com.example.abha_create_verify_android.utils.Status
 
-class AadhaarOTPActivity : AppCompatActivity() {
+class AbhaOTPActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAadhaarOtpactivityBinding
+    private lateinit var binding: ActivityAbhaOtpactivityBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAadhaarOtpactivityBinding.inflate(layoutInflater)
+        binding = ActivityAbhaOtpactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
 
@@ -30,16 +30,16 @@ class AadhaarOTPActivity : AppCompatActivity() {
 
         binding.proceedButton.setOnClickListener {
             binding.incorrectOTPText.visibility = View.GONE
-            viewModel.verifyAadhaarOtp(VerifyOTPReq(binding.aadhaarOTPEditText.text.toString())).observe(this
+            viewModel.verifyMobileOtp(VerifyOTPReq(binding.OTPEditText.text.toString())).observe(this
             ) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
                             binding.correctOTPText.visibility = View.VISIBLE
-                            resource.data?.let { data ->
-                                val intent = Intent(this, AbhaMobileActivity::class.java)
-                                PatientSubject().setDemographics(data)
+                            resource.data?.let {
+                                PatientSubject().setMobile(intent.getStringExtra("mobileNumber")!!)
+                                val intent = Intent(this, PatientBioActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -59,7 +59,6 @@ class AadhaarOTPActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(

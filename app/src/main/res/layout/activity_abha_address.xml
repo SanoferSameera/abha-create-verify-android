@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthModeActivity">
+    tools:context=".AbhaAddressActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -34,46 +34,58 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/abhaNumberCreated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinnerMode"
-            android:layout_marginBottom="1dp"
-            android:text="@string/choose_auth_mode"
-            android:textColor="@color/black"
+            android:text="@string/abha_number_created"
+            android:textColor="@color/green"
             android:textSize="16sp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinnerMode"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/abhaAddressPrompt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
-            android:entries="@array/menu_items" />
-
+            android:text="@string/create_abha_address"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/proceedButton"
+            android:id="@+id/createCustom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerMode"
+            android:layout_below="@+id/abhaAddressPrompt"
             android:layout_marginTop="10dp"
             android:background="@color/yellow"
             android:gravity="center"
-            android:text="@string/proceed"
+            android:text="@string/yes"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createCustom"
+            android:layout_marginTop="10dp"
+            android:background="@color/yellow"
+            android:gravity="center"
+            android:text="@string/no"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressBar"
+            android:layout_below="@+id/createDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/proceedButton"
             android:layout_centerInParent="true"
             android:visibility="invisible"/>
+
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

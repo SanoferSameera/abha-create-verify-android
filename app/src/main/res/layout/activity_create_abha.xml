@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/aadhaarTextInputLayout"
+            android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
             android:text="@string/aadhaar_validation"
             android:textColor="@color/black"
@@ -57,23 +58,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:maxLines="1"
                 android:maxLength="12" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkbox"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/errorMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/proceedButton"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/red"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:id="@id/termsConditionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/aadhaarTextInputLayout"
-            android:text="@string/do_you_agree_with_the_terms_and_conditions"
-            android:textColor="@color/gray" />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorLink="@color/gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/termsConditionsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_agree_with_the_terms_and_conditions"
+                android:textColorLink="@color/gray"
+                android:clickable="true"
+                android:linksClickable="true" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/checkbox"
+            android:layout_below="@+id/termsConditionsLayout"
             android:layout_marginTop="10dp"
             android:background="@color/yellow"
             android:gravity="center"
@@ -81,5 +109,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

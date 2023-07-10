@@ -2,19 +2,24 @@ package com.example.abha_create_verify_android
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.abha_create_verify_android.data.api.ApiHelper
+import com.example.abha_create_verify_android.data.api.RetrofitBuilder
+import com.example.abha_create_verify_android.data.model.GenerateAadhaarOTPReq
 import com.example.abha_create_verify_android.databinding.ActivityAuthModeBinding
+import com.example.abha_create_verify_android.utils.Status
 
 
 class AuthModeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthModeBinding
+    private lateinit var viewModel: MainViewModel
 
     private var xPosition: Int = 0
 
@@ -22,9 +27,10 @@ class AuthModeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthModeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
 
         setSupportActionBar(binding.toolbarAbha)
-        supportActionBar?.title = resources.getString(R.string.verify_abha)
+        supportActionBar?.title = resources.getString(R.string.create_abha)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.proceedButton.setOnClickListener {
@@ -74,8 +80,41 @@ class AuthModeActivity : AppCompatActivity() {
     }
 
     private fun moveToAadhaarOTP() {
-        val intent = Intent(this, AadhaarOTPActivity::class.java)
-        startActivity(intent)
+        var mobileNumber : String
+        val aadhaarNumber = intent.getStringExtra("aadhaarNumber")
+        viewModel.generateAadhaarOtp(GenerateAadhaarOTPReq(aadhaarNumber.toString())).observe(this
+        ) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.progressBar.visibility = View.GONE
+                        resource.data?.let { resp ->
+                            mobileNumber = resp.mobileNumber
+                            val intent = Intent(this, AadhaarOTPActivity::class.java)
+                            intent.putExtra("mobileNumber", mobileNumber)
+                            startActivity(intent)
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    }
+
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+        )[MainViewModel::class.java]
     }
 
 
