@@ -1,26 +1,26 @@
 package com.example.abha_create_verify_android
 
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.example.abha_create_verify_android.data.model.VerifyAadhaarOTPResp
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 
 class PatientSubject {
 
-        var subjectType: String = "Patient"
-        var externalId: String? = null
-        var voided: Boolean = false
-        var registrationDate: String = ""
-        var locationState: String = ""
-        var locationStateExternalId: String? = null
+        var name: String = ""
         var firstName: String = ""
+        var middleName: String = ""
         var lastName: String = ""
         var dateOfBirth: String = ""
         var gender: String = ""
-        var observations: Map<String, String> = emptyMap()
+        var abhaNumber: String = ""
+        var abhaAddress: String = ""
         var address: String = ""
-
+        var phoneNumber: String = ""
 
     fun setDemographics(patient: VerifyAadhaarOTPResp){
-        patientSubject.firstName = patient.fullName
+        patientSubject.name = patient.fullName
+        separateFullName(patient.fullName)
         patientSubject.dateOfBirth = patient.birthdate
         patientSubject.gender = patient.gender
         val addressString = StringBuilder()
@@ -41,26 +41,31 @@ class PatientSubject {
     }
 
     fun setABHANumber(abhaNumber: String){
-        patientSubject.observations = patientSubject.observations.toMutableMap().apply {
-            put("ABHA number", abhaNumber)
-        }
+        patientSubject.abhaNumber = abhaNumber
     }
 
     fun setMobile(mobile: String){
-        patientSubject.observations = patientSubject.observations.toMutableMap().apply {
-            put("Phone number", mobile)
-        }
+        patientSubject.phoneNumber = mobile
     }
 
     fun setABHAAddress(abhaAddress: String){
-        patientSubject.observations = patientSubject.observations.toMutableMap().apply {
-            put("ABHA address", abhaAddress)
-        }
+        patientSubject.abhaAddress = abhaAddress
+    }
+    private fun separateFullName(fullName: String) {
+        val parts = fullName.split(" ")
+        patientSubject.firstName = parts[0]
+        patientSubject.middleName = if (parts.size > 2) parts.subList(1, parts.size - 1).joinToString(" ") else ""
+        patientSubject.lastName = parts.last()
+    }
+
+    fun covertToJson(){
+        val gson = Gson()
+        patientSubjectJson = gson.toJsonTree(patientSubject).asJsonObject
     }
 
 
     companion object {
         var patientSubject = PatientSubject()
-        var PatientSubjectJson = JsonObject()
+        var patientSubjectJson = JsonObject()
     }
 }

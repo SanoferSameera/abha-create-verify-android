@@ -9,6 +9,7 @@ import android.widget.CheckBox
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.databinding.ActivityCreateAbhaBinding
 
 class CreateAbhaActivity : AppCompatActivity() {
@@ -29,6 +30,8 @@ class CreateAbhaActivity : AppCompatActivity() {
         termsAndConditionsTextView.setOnClickListener {
             showTermsAndConditionsPopup()
         }
+
+        RetrofitBuilder.AUTH_TOKEN = intent.getStringExtra("sessionToken").toString()
 
         binding.proceedButton.setOnClickListener {
             val aadhaar = binding.aadhaarEditText.text.toString()

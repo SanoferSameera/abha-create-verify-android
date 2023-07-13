@@ -19,8 +19,9 @@ class AbhaAddressSuccessActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAbha)
         supportActionBar?.title = resources.getString(R.string.create_abha)
 
-        binding.abhaNumber.text =  PatientSubject.patientSubject.observations["ABHA number"]
-        binding.abhaAddress.text =  PatientSubject.patientSubject.observations["ABHA address"]
+        binding.abhaNumber.text =  PatientSubject.patientSubject.abhaNumber
+        binding.abhaAddress.text =  PatientSubject.patientSubject.abhaAddress
+        PatientSubject.patientSubject.covertToJson()
 
         binding.finishButton.setOnClickListener {
             exitApplication()
