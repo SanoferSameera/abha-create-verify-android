@@ -4,11 +4,12 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.Interceptor
+import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
     object RetrofitBuilder {
 
-        private const val BASE_URL = "https://dev.gdobahmni.click"
+        var BASE_URL = ""
         private const val HEADER_AUTHORIZATION = "Authorization"
         var AUTH_TOKEN = ""
 

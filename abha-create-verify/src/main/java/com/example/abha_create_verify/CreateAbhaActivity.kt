@@ -32,6 +32,7 @@ class CreateAbhaActivity : AppCompatActivity() {
         }
 
         RetrofitBuilder.AUTH_TOKEN = intent.getStringExtra("sessionToken").toString()
+        RetrofitBuilder.BASE_URL = intent.getStringExtra("hipBaseURL").toString()
 
         binding.proceedButton.setOnClickListener {
             val aadhaar = binding.aadhaarEditText.text.toString()
@@ -46,6 +47,7 @@ class CreateAbhaActivity : AppCompatActivity() {
                 val intent = Intent(this, AuthModeActivity::class.java)
                 intent.putExtra("aadhaarNumber", binding.aadhaarEditText.text.toString())
                 startActivity(intent)
+                finish()
             }
         }
 

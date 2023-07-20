@@ -36,6 +36,7 @@ class AbhaAddressActivity : AppCompatActivity() {
         binding.createCustom.setOnClickListener {
             val intent = Intent(this, CustomAbhaAddressActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.createDefault.setOnClickListener {
@@ -48,6 +49,7 @@ class AbhaAddressActivity : AppCompatActivity() {
                                 PatientSubject().setABHAAddress(data.abhaAddress)
                                 val intent = Intent(this, AbhaAddressSuccessActivity::class.java)
                                 startActivity(intent)
+                                finish()
                             }
                         }
 

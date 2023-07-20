@@ -40,10 +40,12 @@ class AbhaMobileActivity : AppCompatActivity() {
                                     val intent = Intent(this, PatientBioActivity::class.java)
                                     PatientSubject().setMobile(mobileNumber)
                                     startActivity(intent)
+                                    finish()
                                 } else {
                                     val intent = Intent(this, AbhaOTPActivity::class.java)
                                     intent.putExtra("mobileNumber", mobileNumber)
                                     startActivity(intent)
+                                    finish()
                                 }
                             }
                         }
@@ -71,10 +73,15 @@ class AbhaMobileActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            // Handle back button click here
-            onBackPressedDispatcher.onBackPressed()
+            onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, AuthModeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
