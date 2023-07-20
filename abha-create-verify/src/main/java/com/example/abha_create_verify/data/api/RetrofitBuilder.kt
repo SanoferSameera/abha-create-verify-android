@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
     object RetrofitBuilder {
 
-        var BASE_URL = ""
+        var BASE_URL = "https://dev.gdobahmni.click"
         private const val HEADER_AUTHORIZATION = "Authorization"
         var AUTH_TOKEN = ""
 
