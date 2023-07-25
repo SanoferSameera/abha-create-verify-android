@@ -30,8 +30,10 @@ class CreateAbhaActivity : AppCompatActivity() {
         termsAndConditionsTextView.setOnClickListener {
             showTermsAndConditionsPopup()
         }
-
-        RetrofitBuilder.AUTH_TOKEN = intent.getStringExtra("sessionToken").toString()
+        val token = intent.getStringExtra("sessionToken")
+        if(token != null) {
+            RetrofitBuilder.AUTH_TOKEN = token
+        }
         RetrofitBuilder.BASE_URL = intent.getStringExtra("hipBaseURL").toString()
 
         binding.proceedButton.setOnClickListener {
@@ -47,6 +49,7 @@ class CreateAbhaActivity : AppCompatActivity() {
                 val intent = Intent(this, AuthModeActivity::class.java)
                 intent.putExtra("aadhaarNumber", binding.aadhaarEditText.text.toString())
                 startActivity(intent)
+                finish()
             }
         }
 
