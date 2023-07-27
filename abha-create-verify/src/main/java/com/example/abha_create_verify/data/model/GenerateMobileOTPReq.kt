@@ -6,3 +6,4 @@ data class GenerateMobileOTPReq(
     @SerializedName("mobile")
     val mobile: String
 )
+

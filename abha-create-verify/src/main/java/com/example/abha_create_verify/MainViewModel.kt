@@ -2,12 +2,16 @@ package com.example.abha_create_verify
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.example.abha_create_verify.data.model.AuthInitReq
+import com.example.abha_create_verify.data.model.ConfirmOtpReq
 import com.example.abha_create_verify.data.model.CreateAbhaAddressReq
 import com.example.abha_create_verify.data.model.ErrorResponse
 import com.example.abha_create_verify.data.model.GenerateAadhaarOTPReq
 import com.example.abha_create_verify.data.model.GenerateMobileOTPReq
+import com.example.abha_create_verify.data.model.SearchAbhaReq
 import com.example.abha_create_verify.data.model.VerifyOTPReq
 import com.example.abha_create_verify.data.repository.MainRepository
+import com.example.abha_create_verify.utils.PatientDemographics
 import com.example.abha_create_verify.utils.Resource
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -131,6 +135,74 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         try {
             val res = mainRepository.createDefaultAbhaAddress()
             if(res.code() == 202)
+                res.body()?.let {
+                    emit(Resource.success(data = it))
+                }
+            else {
+                val errorMessage = res.errorBody()?.let { handleErrorResponse(it) }!!
+                emit(Resource.error(data = null, message = errorMessage))
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun searchAbhaId(searchAbhaReq: SearchAbhaReq) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val res = mainRepository.searchAbhaId(searchAbhaReq)
+            if(res.code() == 202)
+                res.body()?.let {
+                    emit(Resource.success(data = it))
+                }
+            else {
+                val errorMessage = res.errorBody()?.let { handleErrorResponse(it) }!!
+                emit(Resource.error(data = null, message = errorMessage))
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun authInit(authInitReq: AuthInitReq) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val res = mainRepository.authInit(authInitReq)
+            if(res.code() == 202)
+                res.body()?.let {
+                    emit(Resource.success(data = it))
+                }
+            else {
+                val errorMessage = res.errorBody()?.let { handleErrorResponse(it) }!!
+                emit(Resource.error(data = null, message = errorMessage))
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun confirmOtp(confirmOtpReq: ConfirmOtpReq) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val res = mainRepository.confirmOtp(confirmOtpReq)
+            if(res.code() == 202)
+                res.body()?.let {
+                    emit(Resource.success(data = it))
+                }
+            else {
+                val errorMessage = res.errorBody()?.let { handleErrorResponse(it) }!!
+                emit(Resource.error(data = null, message = errorMessage))
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun addPatientDemographics(patientDemographics: PatientDemographics) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val res = mainRepository.addPatientDemographics(patientDemographics)
+            if(res.code() == 200)
                 res.body()?.let {
                     emit(Resource.success(data = it))
                 }
