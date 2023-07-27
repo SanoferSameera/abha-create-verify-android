@@ -1,41 +1,58 @@
-package com.example.abha_create_verify_android
+package com.example.abha_create_verify_android.verify
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import com.example.abha_create_verify_android.MainViewModel
+import com.example.abha_create_verify_android.PatientSubject
+import com.example.abha_create_verify_android.R
+import com.example.abha_create_verify_android.ViewModelFactory
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
-import com.example.abha_create_verify_android.databinding.ActivityAbhaAddressSuceessBinding
+import com.example.abha_create_verify_android.databinding.ActivityPatientBioBinding
 import com.example.abha_create_verify_android.utils.ApiUtils
 import com.facebook.react.ReactActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
 import com.google.gson.Gson
 
-class AbhaAddressSuccessActivity : ReactActivity() {
+class PatientBioActivity : ReactActivity() {
 
-    private lateinit var binding: ActivityAbhaAddressSuceessBinding
+    private lateinit var binding: ActivityPatientBioBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_abha_address_suceess)
-        binding = ActivityAbhaAddressSuceessBinding.inflate(layoutInflater)
+        binding = ActivityPatientBioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
 
         setSupportActionBar(binding.toolbarAbha)
-        supportActionBar?.title = resources.getString(R.string.create_abha)
+        supportActionBar?.title = resources.getString(R.string.verify_abha)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.abhaNumber.text =  PatientSubject.patientSubject.abhaNumber
-        binding.abhaAddress.text =  PatientSubject.patientSubject.abhaAddress
+        val patientSubject = PatientSubject.patientSubject
+        binding.patientName.text = patientSubject.firstName
+        binding.dateOfBirth.text = patientSubject.dateOfBirth
+        binding.gender.text = patientSubject.gender
+        binding.phoneNumber.text = patientSubject.phoneNumber
+        binding.address.text = patientSubject.address
+        binding.abhaNumber.text = patientSubject.abhaNumber
+        binding.abhaAddress.text = patientSubject.abhaAddress
 
-        binding.finishButton.setOnClickListener {
-            exitApplication()
+        binding.textAbhaNumber.visibility = View.VISIBLE
+        binding.abhaNumber.visibility = View.VISIBLE
+        binding.textAbhaAddress.visibility = View.VISIBLE
+        binding.abhaAddress.visibility = View.VISIBLE
+
+        binding.proceedButton.text = resources.getString(R.string.finish)
+
+        binding.proceedButton.setOnClickListener {
+             exitApplication()
         }
-
     }
 
     @SuppressLint("VisibleForTests")
@@ -62,11 +79,10 @@ class AbhaAddressSuccessActivity : ReactActivity() {
         builder.setTitle("Confirmation")
             .setMessage("Are you sure you want to go back to the home screen?")
             .setPositiveButton("Yes") { _, _ ->
-                val intent = Intent(this, CreateAbhaActivity::class.java)
+                val intent = Intent(this, AbhaVerifyActivity::class.java)
                 startActivity(intent)
             }
             .setNegativeButton("No", null)
             .show()
     }
-
 }
