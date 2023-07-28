@@ -36,9 +36,9 @@ class CreateAbhaActivity : AppCompatActivity() {
         }
 
         binding.proceedButton.setOnClickListener {
-            val aadhaar = binding.aadhaarEditText.text.toString()
+            val aadhaar = binding.aadhaarEditText.text.toString().replace(" ", "")
             val checkbox = findViewById<CheckBox>(R.id.checkbox)
-            if(aadhaar.isEmpty() || aadhaar.length != 14) {
+            if(aadhaar.isEmpty() || aadhaar.length != 12) {
                 binding.errorMsg.text = String.format("Aadhaar number should have 12 digit")
             }
             else if(!checkbox.isChecked) {
@@ -46,7 +46,7 @@ class CreateAbhaActivity : AppCompatActivity() {
             }
             else {
                 val intent = Intent(this, AuthModeActivity::class.java)
-                intent.putExtra("aadhaarNumber", binding.aadhaarEditText.text.toString())
+                intent.putExtra("aadhaarNumber", aadhaar)
                 startActivity(intent)
                 finish()
             }
