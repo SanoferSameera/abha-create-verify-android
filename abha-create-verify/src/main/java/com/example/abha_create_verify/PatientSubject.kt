@@ -67,7 +67,7 @@ class PatientSubject {
         patientSubject.abhaNumber = patient.abhaNumber
         patientSubject.abhaAddress = patient.abhaAddress
         patientSubject.name = patient.name
-        patientSubject.firstName = patient.firstName + (patient.middleName.let { " $it" } ?: "")
+        patientSubject.firstName = patient.firstName + patient.middleName.let { " $it" }
         patientSubject.lastName = patient.lastName
         patientSubject.dateOfBirth = convertToDateFormat(patient.dayOfBirth, patient.monthOfBirth, patient.yearOfBirth)
         patientSubject.gender = convertGender(patient.gender)
@@ -94,7 +94,6 @@ class PatientSubject {
     }
 
     private fun convertGender(gender: String): String {
-        println("gender: $gender")
         return when (gender.uppercase(Locale.getDefault())) {
             "F" -> "Female"
             "M" -> "Male"

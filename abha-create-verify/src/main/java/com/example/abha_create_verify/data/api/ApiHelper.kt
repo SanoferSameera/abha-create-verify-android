@@ -8,8 +8,6 @@ import com.example.abha_create_verify.data.model.GenerateMobileOTPReq
 import com.example.abha_create_verify.data.model.SearchAbhaReq
 import com.example.abha_create_verify.data.model.VerifyOTPReq
 import com.example.abha_create_verify.utils.PatientDemographics
-import retrofit2.Response
-import retrofit2.http.Body
 
 class ApiHelper(private val apiService: ApiService) {
 

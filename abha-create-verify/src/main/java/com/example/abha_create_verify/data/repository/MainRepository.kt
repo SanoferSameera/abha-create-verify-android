@@ -31,6 +31,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
     suspend fun authInit(authInitReq: AuthInitReq) = apiHelper.authInit(authInitReq)
 
     suspend fun confirmOtp(confirmOtpReq: ConfirmOtpReq) = apiHelper.confirmOtp(confirmOtpReq)
+
     suspend fun addPatientDemographics(patientDemographics: PatientDemographics) = apiHelper.addPatientDemographics(patientDemographics)
 
 }

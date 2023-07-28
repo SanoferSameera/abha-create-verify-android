@@ -3,9 +3,7 @@ package com.example.abha_create_verify.verify
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify.MainViewModel
@@ -16,11 +14,9 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.databinding.ActivityPatientBioBinding
 import com.example.abha_create_verify.utils.ApiUtils
-import com.example.abha_create_verify.utils.Status
 import com.facebook.react.ReactActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.google.gson.Gson
 
 class PatientBioActivity : ReactActivity() {
