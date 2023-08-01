@@ -50,7 +50,7 @@ class AbhaVerifyActivity : AppCompatActivity() {
             val abhaId = binding.abhaEditText.text.toString()
             val checkbox = findViewById<CheckBox>(R.id.checkbox)
             if(abhaId.isEmpty() || abhaId.length != 14) {
-                binding.errorMsg.text = String.format("Abha number should have ")
+                binding.errorMsg.text = String.format("Abha number should have 14 digit")
             }
             else if(!checkbox.isChecked) {
                 binding.errorMsg.text = String.format("Checkbox needs to be checked")
