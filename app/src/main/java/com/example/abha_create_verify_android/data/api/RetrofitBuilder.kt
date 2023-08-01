@@ -12,8 +12,9 @@ import java.util.concurrent.TimeUnit
         private const val HEADER_AUTHORIZATION = "Authorization"
         var AUTH_TOKEN = ""
 
-        private fun getRetrofit(): Retrofit {
+        private var retrofit: Retrofit? = null
 
+        private fun createRetrofitInstance(): Retrofit {
             val okHttpClient = OkHttpClient.Builder().apply {
                 addInterceptor(
                     Interceptor { chain ->
@@ -27,12 +28,21 @@ import java.util.concurrent.TimeUnit
 
             }.build()
 
-            return Retrofit.Builder()
+            retrofit =  Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+
+            return retrofit!!
         }
 
-        val apiService: ApiService = getRetrofit().create(ApiService::class.java)
+        // Custom getter for apiService to handle dynamic BASE_URL
+        val apiService: ApiService
+            get() {
+                if (retrofit == null || BASE_URL != retrofit!!.baseUrl().toString()) {
+                    retrofit = createRetrofitInstance()
+                }
+                return retrofit!!.create(ApiService::class.java)
+            }
     }
