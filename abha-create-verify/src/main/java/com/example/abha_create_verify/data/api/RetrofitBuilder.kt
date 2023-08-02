@@ -7,6 +7,7 @@ import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
     object RetrofitBuilder {
+
         var BASE_URL = ""
         private const val HEADER_AUTHORIZATION = "Authorization"
         var AUTH_TOKEN = ""
@@ -44,4 +45,4 @@ import java.util.concurrent.TimeUnit
                 }
                 return retrofit!!.create(ApiService::class.java)
             }
-}
+    }

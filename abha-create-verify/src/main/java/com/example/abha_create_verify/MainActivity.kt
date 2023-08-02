@@ -27,7 +27,11 @@ class MainActivity : AppCompatActivity() {
             RetrofitBuilder.AUTH_TOKEN = token
         }
         RetrofitBuilder.BASE_URL = intent.getStringExtra("hipBaseURL").toString()
-
+        val stringArray = intent.getStringArrayExtra("existingABHANumbers")
+        if(stringArray != null) {
+            Variables.EXISTING_ABHA_NUMBERS = stringArray
+        }
+        Variables.isABHAVerification = false
 
         binding.createAbha.setOnClickListener {
             val intent = Intent(this, CreateAbhaActivity::class.java)
@@ -36,11 +40,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.verifyAbha.setOnClickListener {
-            val stringArray = intent.getStringArrayExtra("existingABHANumbers")
-            if(stringArray != null) {
-                 Variables.EXISTING_ABHA_NUMBERS = stringArray
-            }
             val intent = Intent(this, AbhaVerifyActivity::class.java)
+            Variables.isABHAVerification = true
             startActivity(intent)
             finish()
         }

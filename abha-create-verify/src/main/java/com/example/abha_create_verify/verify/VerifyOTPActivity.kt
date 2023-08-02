@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify.AbhaAddressActivity
+import com.example.abha_create_verify.AbhaPatientProfileActivity
 import com.example.abha_create_verify.MainViewModel
 import com.example.abha_create_verify.PatientSubject
 import com.example.abha_create_verify.R
@@ -44,12 +45,11 @@ class VerifyOTPActivity : AppCompatActivity() {
                                 PatientSubject().setPatient(data)
                                 if(data.abhaAddress == null) {
                                     val intent = Intent(this, AbhaAddressActivity::class.java)
-                                    intent.putExtra("isVerify", true)
                                     startActivity(intent)
                                     finish()
                                 }
                                 else {
-                                    val intent = Intent(this, PatientBioActivity::class.java)
+                                    val intent = Intent(this, AbhaPatientProfileActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }

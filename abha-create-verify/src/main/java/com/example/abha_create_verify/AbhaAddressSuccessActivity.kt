@@ -9,6 +9,8 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.databinding.ActivityAbhaAddressSuceessBinding
 import com.example.abha_create_verify.utils.ApiUtils
+import com.example.abha_create_verify.utils.Variables
+import com.example.abha_create_verify.verify.AbhaVerifyActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
@@ -18,6 +20,7 @@ class AbhaAddressSuccessActivity : ReactActivity() {
 
     private lateinit var binding: ActivityAbhaAddressSuceessBinding
     private lateinit var viewModel: MainViewModel
+    private var isABHAVerification = Variables.isABHAVerification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +30,9 @@ class AbhaAddressSuccessActivity : ReactActivity() {
         setupViewModel()
 
         setSupportActionBar(binding.toolbarAbha)
-        supportActionBar?.title = resources.getString(R.string.create_abha)
-
+        
+        supportActionBar?.title = if(isABHAVerification) resources.getString(R.string.verify_abha) else  resources.getString(R.string.create_abha)
+        
         binding.abhaNumber.text =  PatientSubject.patientSubject.abhaNumber
         binding.abhaAddress.text =  PatientSubject.patientSubject.abhaAddress
 
@@ -62,7 +66,8 @@ class AbhaAddressSuccessActivity : ReactActivity() {
         builder.setTitle("Confirmation")
             .setMessage("Are you sure you want to go back to the home screen?")
             .setPositiveButton("Yes") { _, _ ->
-                val intent = Intent(this, CreateAbhaActivity::class.java)
+                val intent = Intent(this, if(isABHAVerification) AbhaVerifyActivity::class.java
+                else CreateAbhaActivity::class.java)
                 startActivity(intent)
             }
             .setNegativeButton("No", null)
