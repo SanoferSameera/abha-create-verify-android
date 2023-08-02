@@ -1,4 +1,4 @@
-package com.example.abha_create_verify_android.verify
+package com.example.abha_create_verify_android
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,23 +6,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.example.abha_create_verify_android.MainViewModel
-import com.example.abha_create_verify_android.PatientSubject
-import com.example.abha_create_verify_android.R
-import com.example.abha_create_verify_android.ViewModelFactory
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.databinding.ActivityPatientBioBinding
 import com.example.abha_create_verify_android.utils.ApiUtils
+import com.example.abha_create_verify_android.utils.Variables
+import com.example.abha_create_verify_android.verify.AbhaVerifyActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
 import com.google.gson.Gson
 
-class PatientBioActivity : ReactActivity() {
+class AbhaPatientProfileActivity : ReactActivity() {
 
     private lateinit var binding: ActivityPatientBioBinding
     private lateinit var viewModel: MainViewModel
+    private var isABHAVerification = Variables.isABHAVerification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +30,9 @@ class PatientBioActivity : ReactActivity() {
         setupViewModel()
 
         setSupportActionBar(binding.toolbarAbha)
-        supportActionBar?.title = resources.getString(R.string.verify_abha)
+        
+        supportActionBar?.title = if(isABHAVerification) resources.getString(R.string.verify_abha) else  resources.getString(R.string.create_abha)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val patientSubject = PatientSubject.patientSubject
@@ -51,7 +52,13 @@ class PatientBioActivity : ReactActivity() {
         binding.proceedButton.text = resources.getString(R.string.finish)
 
         binding.proceedButton.setOnClickListener {
-             exitApplication()
+            if(Variables.EXISTING_ABHA_NUMBERS?.contains(patientSubject.abhaNumber) == true)
+            {
+                binding.txtLinked.visibility = View.VISIBLE
+            }
+            else {
+                exitApplication()
+            }
         }
     }
 
@@ -79,7 +86,8 @@ class PatientBioActivity : ReactActivity() {
         builder.setTitle("Confirmation")
             .setMessage("Are you sure you want to go back to the home screen?")
             .setPositiveButton("Yes") { _, _ ->
-                val intent = Intent(this, AbhaVerifyActivity::class.java)
+                val intent = Intent(this, if(isABHAVerification) AbhaVerifyActivity::class.java
+                else CreateAbhaActivity::class.java)
                 startActivity(intent)
             }
             .setNegativeButton("No", null)

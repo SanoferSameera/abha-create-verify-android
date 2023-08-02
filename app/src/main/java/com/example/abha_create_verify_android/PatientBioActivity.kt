@@ -6,16 +6,20 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.databinding.ActivityPatientBioBinding
 import com.example.abha_create_verify_android.utils.Status
+import com.example.abha_create_verify_android.utils.Variables
 
 class PatientBioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPatientBioBinding
     private lateinit var viewModel: MainViewModel
+    private var isABHANumberExisting = false
+    private var isABHANumberLinkedToPatient = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +37,51 @@ class PatientBioActivity : AppCompatActivity() {
         binding.gender.text = patientSubject.gender
         binding.phoneNumber.text = patientSubject.phoneNumber
         binding.address.text = patientSubject.address
+
+        isABHANumberExisting = patientSubject.abhaNumber != null
+        if(isABHANumberExisting) {
+            binding.textAbhaNumber.visibility = View.VISIBLE
+            binding.abhaNumber.visibility = View.VISIBLE
+            binding.abhaNumber.text = patientSubject.abhaNumber
+        }
         binding.proceedButton.setOnClickListener {
-            viewModel.createHealthIdByAadhaarOtp().observe(this) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.progressBar.visibility = View.GONE
-                            resource.data?.let { data ->
-                                val intent = Intent(this, AbhaAddressActivity::class.java)
-                                PatientSubject().setABHANumber(data.healthIdNumber)
-                                intent.putExtra("healthIdNumber", data.healthIdNumber)
-                                startActivity(intent)
-                                finish()
+            if(isABHANumberExisting) {
+                Variables.isNewABHACreated = false
+                isABHANumberLinkedToPatient =  Variables.EXISTING_ABHA_NUMBERS?.contains(patientSubject.abhaNumber) == true
+                if(isABHANumberLinkedToPatient)
+                {
+                    binding.txtLinked.visibility = View.VISIBLE
+                }
+                else {
+                    val intent = Intent(this, AbhaAddressActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+            else {
+                viewModel.createHealthIdByAadhaarOtp().observe(this) {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                binding.progressBar.visibility = View.GONE
+                                resource.data?.let { data ->
+                                    val intent = Intent(this, AbhaAddressActivity::class.java)
+                                    PatientSubject().setABHANumber(data.healthIdNumber)
+                                    intent.putExtra("healthIdNumber", data.healthIdNumber)
+                                    Variables.isNewABHACreated = true
+                                    startActivity(intent)
+                                    finish()
+                                }
                             }
-                        }
 
-                        Status.ERROR -> {
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                        }
+                            Status.ERROR -> {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            }
 
-                        Status.LOADING -> {
-                            binding.progressBar.visibility = View.VISIBLE
+                            Status.LOADING -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
@@ -78,8 +105,22 @@ class PatientBioActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, AbhaMobileActivity::class.java)
-        startActivity(intent)
-        finish()
+        if(isABHANumberLinkedToPatient){
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Confirmation")
+                .setMessage("Are you sure you want to go back to the home screen?")
+                .setPositiveButton("Yes") { _, _ ->
+                    val intent = Intent(this, CreateAbhaActivity::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton("No", null)
+                .show()
+        }
+        else {
+            val intent = Intent(this, if(isABHANumberExisting) AuthModeActivity::class.java else AbhaMobileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }

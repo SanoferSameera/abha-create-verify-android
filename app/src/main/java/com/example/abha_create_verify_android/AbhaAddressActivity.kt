@@ -11,14 +11,14 @@ import com.example.abha_create_verify_android.data.api.ApiHelper
 import com.example.abha_create_verify_android.data.api.RetrofitBuilder
 import com.example.abha_create_verify_android.databinding.ActivityAbhaAddressBinding
 import com.example.abha_create_verify_android.utils.Status
+import com.example.abha_create_verify_android.utils.Variables
 import com.example.abha_create_verify_android.verify.AbhaVerifyActivity
-import com.example.abha_create_verify_android.verify.PatientBioActivity
 
 class AbhaAddressActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAbhaAddressBinding
     private lateinit var viewModel: MainViewModel
-    private var isVerify = false
+    private var isABHAVerification = Variables.isABHAVerification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,25 +29,21 @@ class AbhaAddressActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbarAbha)
 
-        isVerify = intent.getBooleanExtra("isVerify", false)
-        if(isVerify){
-            supportActionBar?.title = resources.getString(R.string.verify_abha)
-
-            binding.abhaNumberCreated.text = resources.getString(R.string.no_abha_address)
-        }
-        else {
-            supportActionBar?.title = resources.getString(R.string.create_abha)
-
-            val abhaNumberVal = intent.getStringExtra("healthIdNumber")
+        if(Variables.isNewABHACreated) {
+            val abhaNumberVal = PatientSubject.patientSubject.abhaNumber
             binding.abhaNumberCreated.text = String.format(binding.abhaNumberCreated.text.toString(),abhaNumberVal)
         }
+        else {
+            binding.abhaNumberCreated.text = resources.getString(R.string.no_abha_address)
+        }
+
+        supportActionBar?.title = if(isABHAVerification) resources.getString(R.string.verify_abha) else  resources.getString(R.string.create_abha)
 
         binding.abhaAddressPrompt.text = String.format(binding.abhaAddressPrompt.text.toString(), getString(R.string.abha_suffix))
 
 
         binding.createCustom.setOnClickListener {
             val intent = Intent(this, CustomAbhaAddressActivity::class.java)
-            intent.putExtra("isVerify", isVerify)
             startActivity(intent)
             finish()
         }
@@ -60,7 +56,7 @@ class AbhaAddressActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             resource.data?.let { data ->
                                 PatientSubject().setABHAAddress(data.abhaAddress)
-                                val intent = Intent(this, if(isVerify) PatientBioActivity::class.java
+                                val intent = Intent(this, if(isABHAVerification) AbhaPatientProfileActivity::class.java
                                 else AbhaAddressSuccessActivity::class.java)
                                 startActivity(intent)
                                 finish()
@@ -93,7 +89,7 @@ class AbhaAddressActivity : AppCompatActivity() {
         builder.setTitle("Confirmation")
             .setMessage("Are you sure you want to go back to the home screen?")
             .setPositiveButton("Yes") { _, _ ->
-                val intent = Intent(this, if(isVerify) AbhaVerifyActivity::class.java
+                val intent = Intent(this, if(isABHAVerification) AbhaVerifyActivity::class.java
                 else CreateAbhaActivity::class.java)
                 startActivity(intent)
             }
