@@ -10,6 +10,7 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.databinding.ActivityPatientBioBinding
 import com.example.abha_create_verify.utils.ApiUtils
+import com.example.abha_create_verify.utils.DialogUtils
 import com.example.abha_create_verify.utils.Variables
 import com.example.abha_create_verify.verify.AbhaVerifyActivity
 import com.facebook.react.ReactActivity
@@ -29,7 +30,7 @@ class AbhaPatientProfileActivity : ReactActivity() {
         setContentView(binding.root)
         setupViewModel()
 
-        setSupportActionBar(binding.toolbarAbha)
+        setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
         
         supportActionBar?.title = if(isABHAVerification) resources.getString(R.string.verify_abha) else  resources.getString(R.string.create_abha)
 
@@ -58,6 +59,12 @@ class AbhaPatientProfileActivity : ReactActivity() {
             }
             else {
                 exitApplication()
+            }
+        }
+
+        binding.appBarLayout.includeToolbar.customCloseButton.setOnClickListener { v ->
+            DialogUtils.showConfirmationDialog(this) {
+                onBackPressedDispatcher.onBackPressed()
             }
         }
     }

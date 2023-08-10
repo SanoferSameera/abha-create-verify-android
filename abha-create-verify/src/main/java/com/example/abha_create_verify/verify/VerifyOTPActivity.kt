@@ -17,6 +17,7 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.data.model.ConfirmOtpReq
 import com.example.abha_create_verify.databinding.ActivityVerifyOtpactivityBinding
+import com.example.abha_create_verify.utils.DialogUtils
 import com.example.abha_create_verify.utils.Status
 
 class VerifyOTPActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class VerifyOTPActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViewModel()
 
-        setSupportActionBar(binding.toolbarAbha)
+        setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
         supportActionBar?.title = resources.getString(R.string.verify_abha)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -67,6 +68,12 @@ class VerifyOTPActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+        }
+
+        binding.appBarLayout.includeToolbar.customCloseButton.setOnClickListener { v ->
+            DialogUtils.showConfirmationDialog(this) {
+                onBackPressedDispatcher.onBackPressed()
             }
         }
     }

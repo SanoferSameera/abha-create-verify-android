@@ -9,6 +9,7 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.databinding.ActivityAbhaAddressSuceessBinding
 import com.example.abha_create_verify.utils.ApiUtils
+import com.example.abha_create_verify.utils.DialogUtils
 import com.example.abha_create_verify.utils.Variables
 import com.example.abha_create_verify.verify.AbhaVerifyActivity
 import com.facebook.react.ReactActivity
@@ -29,7 +30,8 @@ class AbhaAddressSuccessActivity : ReactActivity() {
         setContentView(binding.root)
         setupViewModel()
 
-        setSupportActionBar(binding.toolbarAbha)
+        setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         
         supportActionBar?.title = if(isABHAVerification) resources.getString(R.string.verify_abha) else  resources.getString(R.string.create_abha)
         
@@ -38,6 +40,12 @@ class AbhaAddressSuccessActivity : ReactActivity() {
 
         binding.finishButton.setOnClickListener {
             exitApplication()
+        }
+
+        binding.appBarLayout.includeToolbar.customCloseButton.setOnClickListener { v ->
+            DialogUtils.showConfirmationDialog(this) {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
 
     }

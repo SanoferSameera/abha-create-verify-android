@@ -16,6 +16,7 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.data.model.AuthInitReq
 import com.example.abha_create_verify.databinding.ActivityVerifyAuthModeBinding
+import com.example.abha_create_verify.utils.DialogUtils
 import com.example.abha_create_verify.utils.Status
 
 class AuthModeActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class AuthModeActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViewModel()
 
-        setSupportActionBar(binding.toolbarAbha)
+        setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
         supportActionBar?.title = resources.getString(R.string.verify_abha)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -92,6 +93,11 @@ class AuthModeActivity : AppCompatActivity() {
             }
         }
 
+        binding.appBarLayout.includeToolbar.customCloseButton.setOnClickListener { v ->
+            DialogUtils.showConfirmationDialog(this) {
+                onBackPressedDispatcher.onBackPressed()
+            }
+        }
 
     }
 

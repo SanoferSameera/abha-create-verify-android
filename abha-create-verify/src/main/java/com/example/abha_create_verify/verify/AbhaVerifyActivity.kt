@@ -21,6 +21,7 @@ import com.example.abha_create_verify.data.api.ApiHelper
 import com.example.abha_create_verify.data.api.RetrofitBuilder
 import com.example.abha_create_verify.data.model.SearchAbhaReq
 import com.example.abha_create_verify.databinding.ActivityAbhaVerifyBinding
+import com.example.abha_create_verify.utils.DialogUtils
 import com.example.abha_create_verify.utils.Status
 import com.example.abha_create_verify.utils.Variables
 
@@ -35,7 +36,8 @@ class AbhaVerifyActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViewModel()
 
-        setSupportActionBar(binding.toolbarAbha)
+        setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = resources.getString(R.string.verify_abha)
 
         val termsAndConditionsTextView = findViewById<TextView>(R.id.termsConditionsTextView)
@@ -50,7 +52,7 @@ class AbhaVerifyActivity : AppCompatActivity() {
             val abhaId = binding.abhaEditText.text.toString()
             val checkbox = findViewById<CheckBox>(R.id.checkbox)
             if(abhaId.isEmpty() || abhaId.length != 14) {
-                binding.errorMsg.text = String.format("Abha number should have 14 digits")
+                binding.errorMsg.text = String.format("Abha number should have 14 digit")
             }
             else if(!checkbox.isChecked) {
                 binding.errorMsg.text = String.format("Checkbox needs to be checked")
@@ -89,6 +91,12 @@ class AbhaVerifyActivity : AppCompatActivity() {
                 else {
                     binding.txtLinked.visibility = View.VISIBLE
                 }
+            }
+        }
+
+        binding.appBarLayout.includeToolbar.customCloseButton.setOnClickListener { v ->
+            DialogUtils.showConfirmationDialog(this) {
+                onBackPressedDispatcher.onBackPressed()
             }
         }
     }
