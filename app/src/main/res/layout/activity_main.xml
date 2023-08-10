@@ -21,7 +21,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.Abhacreateverifyandroid.PopupOverlay"
-            app:titleCentered="true" />
+            app:titleCentered="false"
+            app:titleTextAppearance="@style/ToolbarTitle"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,12 +40,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/create_abha"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_medium"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/verifyAbha"
@@ -53,12 +55,14 @@
             android:layout_below="@+id/createAbha"
             android:layout_centerInParent="true"
             android:layout_marginTop="60dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/verify_abha"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_medium"/>
+
 
 
 

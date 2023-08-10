@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_below="@+id/patientAbhaInfo"
-                android:background="@color/yellow"
+                android:background="@color/btn_color"
                 android:text="@string/finish"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

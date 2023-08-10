@@ -27,7 +27,8 @@
             android:text="@string/aadhaar_validation"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_medium"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/aadhaarTextInputLayout"
@@ -44,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLines="1"
-                android:maxLength="14"/>
+                android:maxLength="14"
+                android:fontFamily="@font/roboto_medium"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/termsConditionsLayout"
             android:layout_marginTop="10dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
             android:textAllCaps="false"
