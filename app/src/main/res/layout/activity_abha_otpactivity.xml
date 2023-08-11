@@ -64,7 +64,6 @@
             android:text="@string/incorrect_otp"
             android:textColor="@color/black"
             android:textSize="13sp"
-            android:textStyle="italic"
             android:fontFamily="@font/roboto"
             android:visibility="invisible" />
 
@@ -80,7 +79,6 @@
             android:text="@string/correct_otp"
             android:textColor="@color/black"
             android:textSize="13sp"
-            android:textStyle="italic"
             android:fontFamily="@font/roboto"
             android:visibility="invisible" />
 
