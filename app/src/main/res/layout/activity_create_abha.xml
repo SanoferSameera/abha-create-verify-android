@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     tools:context=".CreateAbhaActivity">
 
     <include
@@ -25,18 +26,21 @@
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
             android:text="@string/aadhaar_validation"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/aadhaarTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:hint="@string/enter_aadhaar_number"
-            app:boxBackgroundColor="@color/box_color">
+            app:boxBackgroundColor="@color/box_color"
+            app:boxStrokeColor="@color/outline_grey"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/aadhaarEditText"
@@ -44,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLines="1"
-                android:maxLength="14"/>
+                android:maxLength="14"
+                android:fontFamily="@font/roboto"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +83,8 @@
                 android:text="@string/do_you_agree_with_the_terms_and_conditions"
                 android:textColorLink="@color/gray"
                 android:clickable="true"
-                android:linksClickable="true" />
+                android:linksClickable="true"
+                android:fontFamily="@font/roboto"/>
 
         </LinearLayout>
 
@@ -88,12 +94,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/termsConditionsLayout"
             android:layout_marginTop="10dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

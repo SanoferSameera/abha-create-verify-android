@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     tools:context=".AbhaAddressActivity">
 
     <include
@@ -25,9 +26,9 @@
             android:layout_above="@+id/abhaAddressTextInputLayout"
             android:layout_marginBottom="1dp"
             android:text="@string/abha_address"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <LinearLayout
             android:id="@+id/abhaAddressTextInputLayout"
@@ -36,12 +37,16 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.75"
                 android:hint="@string/enter_abha_address"
-                app:boxBackgroundColor="@color/box_color">
+                android:fontFamily="@font/roboto"
+                app:boxBackgroundColor="@color/box_color"
+                app:boxStrokeColor="@color/outline_grey"
+                app:boxStrokeWidthFocused="1dp"
+                app:boxStrokeWidth="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextAbhaAddress"
@@ -55,11 +60,12 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="0.2"
+                android:layout_height="50dp"
+                android:layout_weight="0.25"
                 android:background="@color/teal_700"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:fontFamily="@font/roboto"
                 android:text="@string/abha_suffix" />
 
         </LinearLayout>
@@ -70,7 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/abhaAddressTextInputLayout"
             android:text="@string/preferred_abha_address"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/roboto"
             android:textSize="12sp"
             android:textStyle="normal" />
 
@@ -80,12 +87,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/checkbox"
             android:layout_marginTop="10dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -93,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_below="@+id/proceedButton"
+            android:indeterminateTint="@color/progress_bar"
             android:visibility="invisible"/>
 
     </RelativeLayout>

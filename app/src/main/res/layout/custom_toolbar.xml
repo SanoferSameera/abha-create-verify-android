@@ -7,7 +7,8 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:elevation="4dp"
-    app:titleCentered="true"
+    app:titleCentered="false"
+    app:titleTextAppearance="@style/ToolbarTitle"
     app:popupTheme="@style/Theme.Abhacreateverifyandroid.PopupOverlay">
 
     <!-- Right Side (Custom Close Button) -->
