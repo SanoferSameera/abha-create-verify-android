@@ -25,9 +25,9 @@
             android:layout_above="@+id/spinnerMode"
             android:layout_marginBottom="1dp"
             android:text="@string/choose_auth_mode"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinnerMode"
@@ -49,9 +49,9 @@
             android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/proceedButton"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/progress_bar"
             android:visibility="invisible"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

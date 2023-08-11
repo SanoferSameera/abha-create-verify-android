@@ -16,5 +16,6 @@
     <color name="appBackground">#f5f4f5</color>
     <color name="outline_grey">#999999</color>
     <color name="light_gray">#D2A8AAAA</color>
+    <color name="progress_bar">#009688</color>
 
 </resources>
