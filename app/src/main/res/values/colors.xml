@@ -9,9 +9,11 @@
     <color name="gray">#A8AAAA</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btn_color">#009688</color>
-    <color name="box_color">#CBF3E3</color>
+    <color name="box_color">#f3f3f3</color>
     <color name="green">#0EA514</color>
     <color name="red">#BC0D0D</color>
+    <color name="grey">#3c3c3c</color>
+    <color name="appBackground">#f5f4f5</color>
     <color name="outline_grey">#999999</color>
     <color name="light_gray">#D2A8AAAA</color>
 
