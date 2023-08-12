@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     tools:context=".verify.AbhaVerifyActivity">
 
     <include
@@ -24,18 +25,22 @@
             android:layout_above="@+id/aadhaarTextInputLayout"
             android:layout_marginBottom="1dp"
             android:text="@string/abha_verification"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/aadhaarTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:hint="@string/enter_your_abha_number"
-            app:boxBackgroundColor="@color/box_color">
+            android:fontFamily="@font/roboto"
+            app:boxBackgroundColor="@color/box_color"
+            app:boxStrokeColor="@color/outline_grey"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/abhaEditText"
@@ -54,6 +59,7 @@
             android:layout_below="@+id/proceedButton"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/red"
             android:textSize="10sp" />
 
@@ -88,12 +94,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/termsConditionsLayout"
             android:layout_marginTop="30dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -101,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/proceedButton"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/progress_bar"
             android:visibility="invisible"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -114,6 +121,7 @@
             android:textColor="@color/teal_700"
             android:textSize="12sp"
             android:textStyle="normal"
+            android:fontFamily="@font/roboto"
             android:visibility="invisible"/>
 
 

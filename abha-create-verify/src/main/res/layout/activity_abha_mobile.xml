@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     tools:context=".AbhaMobileActivity">
 
     <include
@@ -24,18 +25,22 @@
             android:layout_above="@+id/aadhaarTextInputLayout"
             android:layout_marginBottom="1dp"
             android:text="@string/mobile_number_required_for_abha_creation"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/aadhaarTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:hint="@string/enter_mobile_number"
-            app:boxBackgroundColor="@color/box_color">
+            android:fontFamily="@font/roboto"
+            app:boxBackgroundColor="@color/box_color"
+            app:boxStrokeColor="@color/outline_grey"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/mobileEditText"
@@ -53,12 +58,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/aadhaarTextInputLayout"
             android:layout_marginTop="30dp"
-            android:background="@color/yellow"
+            android:background="@color/btn_color"
             android:gravity="center"
             android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -66,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/proceedButton"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/progress_bar"
             android:visibility="invisible"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

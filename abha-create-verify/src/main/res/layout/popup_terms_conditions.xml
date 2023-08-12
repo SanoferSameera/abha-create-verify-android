@@ -20,7 +20,8 @@
             android:padding="15dp"
             android:gravity="bottom"
             android:scrollbars="vertical"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/roboto"
             android:text="@string/terms_and_conditions_text" />
 
     </ScrollView>
