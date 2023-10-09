@@ -71,7 +71,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.Bahmni-HWC'
+                groupId = 'com.github.SanoferSameera'
                 artifactId = 'abha-create-verify-android'
                 version = '1.0'
             }

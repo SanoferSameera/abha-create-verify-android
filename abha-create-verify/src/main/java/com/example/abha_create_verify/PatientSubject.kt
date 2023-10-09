@@ -88,6 +88,13 @@ class PatientSubject {
             patientSubject.phoneNumber!!)
     }
 
+    fun setPatient(aadhaarNumber: String, name: String, dateOfBirth: String, gender: String){
+        patientSubject.aadhaarNumber = aadhaarNumber
+        patientSubject.name = name
+        patientSubject.dateOfBirth = dateOfBirth
+        patientSubject.gender = gender
+    }
+
     private fun convertToDateFormat(day: String?, month: String?, year: String?): String {
         val d = day?.toIntOrNull() ?: 1
         val m = month?.toIntOrNull() ?: 1
