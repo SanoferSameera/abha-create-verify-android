@@ -24,10 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/nameTextInputLayout"
             android:layout_marginBottom="1dp"
-            android:text="@string/name"
-            android:textColor="@color/grey"
+            android:text="@string/name_as_per_aadhaar"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/roboto" />
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameTextInputLayout"
@@ -55,146 +56,142 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameTextInputLayout"
             android:layout_marginBottom="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:text="@string/date_of_birth"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dobTextInputLayout"
+        <LinearLayout
+            android:id="@+id/toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/dobTextHeadline"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:orientation="horizontal"
+            android:layout_margin="8dp">
+
+            <Switch
+                android:id="@+id/yearOfBirthSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/enterYearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_have_only_year_of_birth_as_per_aadhaar"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dobLayoutContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="@string/dd_mm_yyyy"
-            app:boxBackgroundColor="@color/box_color"
-            app:boxStrokeColor="@color/outline_grey"
-            app:boxStrokeWidthFocused="1dp"
-            app:boxStrokeWidth="1dp">
+            android:layout_below="@+id/toggle"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dobEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dobCalendarInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:maxLines="1"
-                android:focusable="false"
-                android:clickable="true"
-                android:onClick="showDatePickerDialog" />
+                app:boxBackgroundColor="@color/box_color"
+                app:boxStrokeColor="@color/outline_grey"
+                app:boxStrokeWidthFocused="1dp"
+                app:boxStrokeWidth="1dp"
+                android:visibility="visible">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dobCalendarInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:hint="@string/dd_mm_yyyy"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/calendar"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dobTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/box_color"
+                app:boxStrokeColor="@color/outline_grey"
+                app:boxStrokeWidthFocused="1dp"
+                app:boxStrokeWidth="1dp"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dobEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:maxLength="4"
+                    android:hint="@string/yyyy"
+                    android:drawableEnd="@drawable/calendar"
+                   />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/genderTextHeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dobTextInputLayout"
+            android:layout_below="@+id/dobLayoutContainer"
             android:layout_marginBottom="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:text="@string/gender"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/genderTextInputLayout"
-            android:layout_below="@+id/genderTextHeadline"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <FrameLayout
+            android:id="@+id/genderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="@string/enter_f_m_other"
-            app:boxBackgroundColor="@color/box_color"
-            app:boxStrokeColor="@color/outline_grey"
-            app:boxStrokeWidthFocused="1dp"
-            app:boxStrokeWidth="1dp">
+            android:layout_below="@+id/genderTextHeadline">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/genderEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/genderTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:hint="@string/enter_f_m_other"
+                app:boxStrokeWidthFocused="1dp"
+                app:boxStrokeWidth="1dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/stateTextHeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/genderTextInputLayout"
-            android:layout_marginBottom="1dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/state"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/stateTextInputLayout"
-            android:layout_below="@+id/stateTextHeadline"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="@string/enter_state"
-            app:boxBackgroundColor="@color/box_color"
-            app:boxStrokeColor="@color/outline_grey"
-            app:boxStrokeWidthFocused="1dp"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/stateEditText"
+            <Spinner
+                android:id="@+id/genderSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" />
+        </FrameLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/districtTextHeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/stateTextInputLayout"
-            android:layout_marginBottom="1dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/district"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/districtTextInputLayout"
-            android:layout_below="@+id/districtTextHeadline"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="@string/enter_district"
-            app:boxBackgroundColor="@color/box_color"
-            app:boxStrokeColor="@color/outline_grey"
-            app:boxStrokeWidthFocused="1dp"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/districtEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/warningMszText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/districtTextInputLayout"
+            android:layout_below="@+id/genderContainer"
             android:layout_marginBottom="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="40dp"
             android:text="@string/make_sure_your_demographics_matches_with_aadhaar"
             android:textColor="@color/black"
             android:textSize="10sp" />
@@ -211,5 +208,15 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:fontFamily="@font/roboto" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/errorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proceedButton"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/red"
+            android:textSize="10sp" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

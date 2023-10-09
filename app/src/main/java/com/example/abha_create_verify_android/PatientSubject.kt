@@ -27,6 +27,9 @@ class PatientSubject {
     private fun formatDateOfBirth(dateOfBirth : String): String {
         val inputFormat = SimpleDateFormat("dd-MM-yyyy")
         val outputFormat = SimpleDateFormat("yyyy-MM-dd")
+        if(dateOfBirth.length == 4) {
+            return dateOfBirth
+        }
         val date: Date = inputFormat.parse(dateOfBirth) as Date
         return outputFormat.format(date)
     }
@@ -62,8 +65,13 @@ class PatientSubject {
     }
     private fun separateFullName(fullName: String) {
         val parts = fullName.split(" ")
-        patientSubject.firstName = parts.subList(0, parts.size - 1).joinToString(" ")
-        patientSubject.lastName = parts.last()
+        if (parts.size == 1) {
+            patientSubject.firstName = parts[0]
+            patientSubject.lastName = ""
+        } else {
+            patientSubject.firstName = parts.subList(0, parts.size - 1).joinToString(" ")
+            patientSubject.lastName = parts.last()
+        }
     }
 
      fun setPatient(patient: VerifyAbhaPatient){
@@ -86,6 +94,13 @@ class PatientSubject {
             convertGender(patientSubject.gender!!),
             patientSubject.dateOfBirth!!,
             patientSubject.phoneNumber!!)
+    }
+
+    fun setPatient(aadhaarNumber: String, name: String, dateOfBirth: String, gender: String){
+        patientSubject.aadhaarNumber = aadhaarNumber
+        separateFullName(name)
+        patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
+        patientSubject.gender = gender
     }
 
     private fun convertToDateFormat(day: String?, month: String?, year: String?): String {
