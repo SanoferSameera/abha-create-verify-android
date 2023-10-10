@@ -11,4 +11,11 @@
         <item>MOBILE_OTP</item>
         <item>AADHAAR_OTP</item>
     </string-array>
+
+    <string-array name="gender_menu_items">
+        <item>Choose Gender</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+    </string-array>
 </resources>
