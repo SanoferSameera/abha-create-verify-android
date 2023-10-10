@@ -81,7 +81,11 @@ class AuthModeActivity : AppCompatActivity() {
     }
 
     private fun moveToDemographic() {
-        Toast.makeText(this, "The selected auth mode is currently unavailable", Toast.LENGTH_LONG).show()
+        val aadhaarNumber = intent.getStringExtra("aadhaarNumber")
+        val intent = Intent(this, DemographicActivity::class.java)
+        intent.putExtra("aadhaarNumber", aadhaarNumber)
+        startActivity(intent)
+        finish()
     }
 
     private fun moveToAadhaarOTP() {
