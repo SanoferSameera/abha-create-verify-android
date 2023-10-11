@@ -79,7 +79,7 @@
             <TextView
                 android:id="@+id/enterYearText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="@string/do_you_have_only_year_of_birth_as_per_aadhaar"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
