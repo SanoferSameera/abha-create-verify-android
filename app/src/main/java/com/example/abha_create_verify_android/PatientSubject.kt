@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.example.abha_create_verify_android.utils.Patient
 import com.example.abha_create_verify_android.data.model.VerifyAadhaarOTPResp
 import com.example.abha_create_verify_android.data.model.VerifyAbhaPatient
+import com.example.abha_create_verify_android.utils.AadhaarCardInfo
 import com.example.abha_create_verify_android.utils.PatientDemographics
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -101,6 +102,30 @@ class PatientSubject {
         separateFullName(name)
         patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
         patientSubject.gender = gender
+    }
+
+    fun setPatient(patient: AadhaarCardInfo){
+        patientSubject.name = patient.name
+        separateFullName(patient.name!!)
+        patientSubject.dateOfBirth = formatDateOfBirth(patient.dateOfBirth!!)
+        patientSubject.gender = patient.gender
+        patientSubject.villageTownCity = patient.villageTownCity ?: patient.subDistrict ?: patient.district
+
+        val addressString = StringBuilder()
+        listOfNotNull(
+            patient.villageTownCity,
+            patient.subDistrict,
+            patient.district,
+            patient.state,
+            patient.pinCode
+        ).forEach { str ->
+            if (addressString.isNotEmpty()) {
+                addressString.append(", ")
+            }
+            addressString.append(str)
+        }
+        patientSubject.address = addressString.toString()
+
     }
 
     private fun convertToDateFormat(day: String?, month: String?, year: String?): String {
