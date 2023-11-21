@@ -10,7 +10,7 @@ import java.util.LinkedList
 import java.util.zip.GZIPInputStream
 
 
-class AadhaarSecureQr(scanData: String?) {
+class AadhaarSecureQrParser(scanData: String?) {
     private var decodedData: ArrayList<String>? = null
     private var scannedAadhaarCardInfo: AadhaarCardInfo = AadhaarCardInfo()
 
