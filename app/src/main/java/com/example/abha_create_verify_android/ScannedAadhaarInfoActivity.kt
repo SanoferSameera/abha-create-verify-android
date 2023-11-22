@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.abha_create_verify_android.data.api.ApiHelper
@@ -38,6 +40,7 @@ class ScannedAadhaarInfoActivity : ReactActivity() {
         binding.dateOfBirth.text = patientSubject.dateOfBirth
         binding.gender.text = patientSubject.gender
         binding.address.text = patientSubject.address
+        binding.textPhoneNumber.visibility = View.GONE
 
         binding.proceedButton.text = resources.getString(R.string.finish)
 
@@ -75,6 +78,14 @@ class ScannedAadhaarInfoActivity : ReactActivity() {
             this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
         )[MainViewModel::class.java]
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Abhacreateverifyandroid"
+        android:hardwareAccelerated="true"
         tools:targetApi="31">
         <activity
             android:name=".verify.MobileLinkedABHAActivity"
@@ -87,6 +88,10 @@
             android:name=".DemographicsManualOrQRScanActivity"
             android:exported="false"
             android:theme="@style/Theme.Abhacreateverifyandroid.NoActionBar"/>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".ScannedAadhaarInfoActivity"
             android:exported="false"

@@ -2,7 +2,6 @@ package com.example.abha_create_verify_android
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +11,9 @@ import com.example.abha_create_verify_android.utils.AadhaarPlainTextQrParser
 import com.example.abha_create_verify_android.utils.AadhaarSecureQrParser
 import com.example.abha_create_verify_android.utils.AadhaarXmlQrParser
 import com.example.abha_create_verify_android.utils.DialogUtils
-import com.google.android.gms.common.moduleinstall.ModuleInstall
-import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
-import com.google.mlkit.vision.barcode.common.Barcode
-import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
-import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import org.xml.sax.InputSource
 import javax.xml.parsers.DocumentBuilderFactory
 
@@ -61,47 +58,23 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchScanner(): String? {
-        val options = GmsBarcodeScannerOptions.Builder()
-            .setBarcodeFormats(
-                Barcode.FORMAT_QR_CODE,
-                Barcode.FORMAT_AZTEC
-            )
-            .build()
-        var data: String? = null
-        val scanner = GmsBarcodeScanning.getClient(this, options)
+    private fun launchScanner() {
+        barcodeLauncher.launch(ScanOptions().setOrientationLocked(false).setPrompt("Scan Aadhaar QR Code"))
+    }
 
-        val moduleInstallRequest =
-            ModuleInstallRequest.newBuilder()
-                .addApi(scanner)
-                .build()
-        val moduleInstallClient = ModuleInstall.getClient(this)
-
-        moduleInstallClient
-            .installModules(moduleInstallRequest)
-            .addOnSuccessListener {
-                Log.d("QR", "Modules successfully installed")
-            }
-            .addOnFailureListener {
-                Log.e("MainActivity", "Error installing modules", it)
-            }
-
-        scanner.startScan()
-            .addOnSuccessListener { barcode ->
-                data = barcode.rawValue
-                Log.d("QR", "Successful: $data")
-                successMessage.postValue("Scanning done, processing your data")
-                data?.let {
+    private val barcodeLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (result.contents == null) {
+            Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Scanned, Processing... ", Toast.LENGTH_SHORT)
+                .show()
+            result.contents?.let {
                     processQRData(it)
                     displayAadhaarInfo()
-                }
             }
-            .addOnFailureListener { e ->
-                val errorMessage = "Some unexpected error occurred: $e"
-                Log.e("QR", "failed:  $e")
-                failureMessage.postValue(errorMessage)
-            }
-        return data
+        }
     }
 
     private fun displayAadhaarInfo() {
