@@ -12,7 +12,7 @@ import java.util.Locale
 
 class PatientSubject {
 
-    fun setAadhaarProfile(patient: VerifyAadhaarOTPResp){
+    fun setAadhaarProfile(patient: VerifyAadhaarOTPResp) {
         patientSubject.name = patient.fullName
         separateFullName(patient.fullName)
         patientSubject.dateOfBirth = formatDateOfBirth(patient.birthdate)
@@ -25,10 +25,10 @@ class PatientSubject {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun formatDateOfBirth(dateOfBirth : String): String {
+    private fun formatDateOfBirth(dateOfBirth: String): String {
         val inputFormat = SimpleDateFormat("dd-MM-yyyy")
         val outputFormat = SimpleDateFormat("yyyy-MM-dd")
-        if(dateOfBirth.length == 4) {
+        if (dateOfBirth.length == 4) {
             return dateOfBirth
         }
         val date: Date = inputFormat.parse(dateOfBirth) as Date
@@ -53,17 +53,18 @@ class PatientSubject {
         return addressString.toString()
     }
 
-    fun setABHANumber(abhaNumber: String){
+    fun setABHANumber(abhaNumber: String) {
         patientSubject.abhaNumber = abhaNumber
     }
 
-    fun setMobile(mobile: String){
+    fun setMobile(mobile: String) {
         patientSubject.phoneNumber = mobile
     }
 
-    fun setABHAAddress(abhaAddress: String){
+    fun setABHAAddress(abhaAddress: String) {
         patientSubject.abhaAddress = abhaAddress
     }
+
     private fun separateFullName(fullName: String) {
         val parts = fullName.split(" ")
         if (parts.size == 1) {
@@ -75,57 +76,73 @@ class PatientSubject {
         }
     }
 
-     fun setPatient(patient: VerifyAbhaPatient){
+    fun setPatient(patient: VerifyAbhaPatient) {
         patientSubject.abhaNumber = patient.abhaNumber
         patientSubject.abhaAddress = patient.abhaAddress
         patientSubject.name = patient.name
         patientSubject.firstName = patient.firstName + patient.middleName.let { " $it" }
         patientSubject.lastName = patient.lastName
-        patientSubject.dateOfBirth = convertToDateFormat(patient.dayOfBirth, patient.monthOfBirth, patient.yearOfBirth)
+        patientSubject.dateOfBirth =
+            convertToDateFormat(patient.dayOfBirth, patient.monthOfBirth, patient.yearOfBirth)
         patientSubject.gender = convertGender(patient.gender)
-        patientSubject.villageTownCity = patient.villageName ?: patient.townName ?: patient.subDistrictName ?: patient.districtName
+        patientSubject.villageTownCity =
+            patient.villageName ?: patient.townName ?: patient.subDistrictName
+                    ?: patient.districtName
         patientSubject.address = patient.address
         patientSubject.phoneNumber = patient.mobile
     }
 
-     fun setPatientDemographics(){
+    fun setPatientDemographics() {
         demographics = PatientDemographics(
             patientSubject.abhaAddress!!,
             patientSubject.name!!,
             convertGender(patientSubject.gender!!),
             patientSubject.dateOfBirth!!,
-            patientSubject.phoneNumber!!)
+            patientSubject.phoneNumber!!
+        )
     }
 
-    fun setPatient(aadhaarNumber: String, name: String, dateOfBirth: String, gender: String){
+    fun setPatient(aadhaarNumber: String, name: String, dateOfBirth: String, gender: String) {
         patientSubject.aadhaarNumber = aadhaarNumber
         separateFullName(name)
         patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
         patientSubject.gender = gender
     }
 
-    fun setPatient(patient: AadhaarCardInfo){
-        patientSubject.name = patient.name
-        separateFullName(patient.name!!)
-        patientSubject.dateOfBirth = formatDateOfBirth(patient.dateOfBirth!!)
-        patientSubject.gender = patient.gender
-        patientSubject.villageTownCity = patient.villageTownCity ?: patient.subDistrict ?: patient.district
-
-        val addressString = StringBuilder()
-        listOfNotNull(
-            patient.villageTownCity,
-            patient.subDistrict,
-            patient.district,
-            patient.state,
-            patient.pinCode
-        ).forEach { str ->
-            if (addressString.isNotEmpty()) {
-                addressString.append(", ")
+    fun setPatient(patient: AadhaarCardInfo?) {
+        patient?.let {
+            it.name?.let { name ->
+                patientSubject.name = name
+                separateFullName(name)
             }
-            addressString.append(str)
-        }
-        patientSubject.address = addressString.toString()
+            it.dateOfBirth?.let { dateOfBirth ->
+                patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
+            }
+            it.gender?.let { gender ->
+                patientSubject.gender = gender
+            }
 
+            val villageTownCity = it.villageTownCity ?: it.subDistrict ?: it.district
+            patientSubject.villageTownCity =
+                villageTownCity ?: "Default City" // Replace "Default City" with your default value
+
+            val addressString = StringBuilder()
+            listOfNotNull(
+                it.villageTownCity,
+                it.subDistrict,
+                it.district,
+                it.state,
+                it.pinCode
+            ).forEach { str ->
+                if (str != null) {
+                    if (addressString.isNotEmpty()) {
+                        addressString.append(", ")
+                    }
+                    addressString.append(str)
+                }
+            }
+            patientSubject.address = addressString.toString()
+        }
     }
 
     private fun convertToDateFormat(day: String?, month: String?, year: String?): String {
