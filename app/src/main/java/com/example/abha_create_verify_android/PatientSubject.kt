@@ -22,6 +22,7 @@ class PatientSubject {
         patientSubject.phoneNumber = patient.phone
         patientSubject.abhaNumber = patient.abhaNumber
         patientSubject.abhaAddress = patient.abhaAddress
+        patientSubject.postalCode = patient.pincode
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -90,6 +91,7 @@ class PatientSubject {
                     ?: patient.districtName
         patientSubject.address = patient.address
         patientSubject.phoneNumber = patient.mobile
+        patientSubject.postalCode = patient.pincode
     }
 
     fun setPatientDemographics() {
@@ -142,7 +144,11 @@ class PatientSubject {
                 }
             }
             patientSubject.address = addressString.toString()
+            it.pinCode?.let { pinCode ->
+                patientSubject.postalCode = pinCode
+            }
         }
+
     }
 
     fun setAadhaarNumber(aadhaarNumber: String) {
