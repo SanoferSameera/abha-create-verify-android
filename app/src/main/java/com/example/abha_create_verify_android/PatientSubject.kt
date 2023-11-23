@@ -119,7 +119,7 @@ class PatientSubject {
                 patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
             }
             it.gender?.let { gender ->
-                patientSubject.gender = gender
+                patientSubject.gender =  convertGender(gender)
             }
 
             val villageTownCity = it.villageTownCity ?: it.subDistrict ?: it.district
@@ -143,6 +143,10 @@ class PatientSubject {
             }
             patientSubject.address = addressString.toString()
         }
+    }
+
+    fun setAadhaarNumber(aadhaarNumber: String) {
+        patientSubject.aadhaarNumber = aadhaarNumber
     }
 
     private fun convertToDateFormat(day: String?, month: String?, year: String?): String {

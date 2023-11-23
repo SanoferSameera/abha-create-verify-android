@@ -116,6 +116,7 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
             else -> AadhaarPlainTextQrParser(scannedData).getAadhaarCardInfo()
         }
         PatientSubject().setPatient(aadhaarCardInfo)
+        PatientSubject().setAadhaarNumber(aadhaarNumber.toString())
     }
 
 
