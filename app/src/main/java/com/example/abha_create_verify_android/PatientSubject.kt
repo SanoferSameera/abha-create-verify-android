@@ -119,7 +119,7 @@ class PatientSubject {
                 patientSubject.dateOfBirth = formatDateOfBirth(dateOfBirth)
             }
             it.gender?.let { gender ->
-                patientSubject.gender =  convertGender(gender)
+                patientSubject.gender =  if (gender.length == 1) convertGender(gender) else gender
             }
 
             val villageTownCity = it.villageTownCity ?: it.subDistrict ?: it.district
