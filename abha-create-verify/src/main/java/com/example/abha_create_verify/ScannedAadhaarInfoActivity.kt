@@ -62,6 +62,8 @@ class ScannedAadhaarInfoActivity : ReactActivity() {
         val jsonString = gson.toJson(PatientSubject.patientSubject)
         map.putString("patientInfo", jsonString)
 
+        println("Patient Info: $jsonString")
+
         try {
             reactInstanceManager.currentReactContext
                 ?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
