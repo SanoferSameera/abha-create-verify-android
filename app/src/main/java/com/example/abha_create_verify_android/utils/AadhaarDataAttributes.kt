@@ -6,6 +6,7 @@ object AadhaarDataAttributes {
     const val AADHAAR_NAME_ATTR = "name"
     const val AADHAAR_GENDER_ATTR = "gender"
     const val AADHAAR_DOB_ATTR = "dob"
+    const val AADHAAR_YOB_ATTR = "yob"
     const val AADHAAR_VTC_ATTR = "vtc"
     const val AADHAAR_DIST_ATTR = "dist"
     const val AADHAAR_STATE_ATTR = "state"

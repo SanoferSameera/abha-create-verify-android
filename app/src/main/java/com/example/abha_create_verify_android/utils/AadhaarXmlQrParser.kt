@@ -46,7 +46,12 @@ class AadhaarXmlQrParser(scanData: String?) {
                         parser.getAttributeValue(
                             null,
                             AadhaarDataAttributes.AADHAAR_DOB_ATTR
-                        )?.replace('/', '-')
+                        )?.replace('/', '-') ?:
+                        parser.getAttributeValue(
+                            null,
+                            AadhaarDataAttributes.AADHAAR_YOB_ATTR
+                        )
+
 
                     scannedAadhaarCardInfo.villageTownCity =
                         parser.getAttributeValue(

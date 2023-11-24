@@ -23,7 +23,9 @@ data class Patient(
     @SerializedName("villageTownCity")
     var villageTownCity: String? = "",
     @SerializedName("aadhaarNumber")
-    var aadhaarNumber: String? = ""
+    var aadhaarNumber: String? = "",
+    @SerializedName("postalCode")
+    var postalCode: String? = ""
 )
 
 data class PatientDemographics(
