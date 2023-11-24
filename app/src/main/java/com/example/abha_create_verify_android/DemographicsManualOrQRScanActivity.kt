@@ -59,29 +59,9 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
     }
 
     private fun launchScanner() {
-        barcodeLauncher.launch(ScanOptions().setOrientationLocked(false).setPrompt("Scan Aadhaar QR Code"))
-    }
-
-    private val barcodeLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>(
-        ScanContract()
-    ) { result: ScanIntentResult ->
-        if (result.contents == null) {
-            Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Scanned, Processing... ", Toast.LENGTH_SHORT)
-                .show()
-            result.contents?.let {
-                    processQRData(it)
-                    displayAadhaarInfo()
-            }
-        }
-    }
-
-    private fun displayAadhaarInfo() {
-        val intent = Intent(this, ScannedAadhaarInfoActivity::class.java)
-        intent.putExtra("aadhaarNumber", aadhaarNumber)
+        PatientSubject().setAadhaarNumber(aadhaarNumber.toString())
+        val intent = Intent(this, AadhaarQRScanActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
     private fun moveToManualDemographic() {
@@ -107,33 +87,6 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
 
     private fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun processQRData(scannedData: String) {
-        val aadhaarCardInfo = when {
-            isSecureQR(scannedData) -> AadhaarSecureQrParser(scannedData).getScannedAadhaarInfo()
-            isXmlBasedQR(scannedData) -> AadhaarXmlQrParser(scannedData).getAadhaarCardInfo()
-            else -> AadhaarPlainTextQrParser(scannedData).getAadhaarCardInfo()
-        }
-        PatientSubject().setPatient(aadhaarCardInfo)
-        PatientSubject().setAadhaarNumber(aadhaarNumber.toString())
-    }
-
-
-    private fun isSecureQR(sample: String): Boolean {
-        return  sample.toBigIntegerOrNull() != null
-    }
-
-    private fun isXmlBasedQR(testString: String?): Boolean {
-        return try {
-            val factory = DocumentBuilderFactory.newInstance()
-            val builder = factory.newDocumentBuilder()
-            val inputSource = InputSource(testString?.reader())
-            builder.parse(inputSource)
-            true
-        } catch (e: Exception) {
-            false
-        }
     }
 
 }
