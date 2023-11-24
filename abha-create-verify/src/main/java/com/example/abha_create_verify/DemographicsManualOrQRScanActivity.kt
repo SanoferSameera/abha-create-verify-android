@@ -59,7 +59,11 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
     }
 
     private fun launchScanner() {
-        barcodeLauncher.launch(ScanOptions().setOrientationLocked(false).setPrompt("Scan Aadhaar QR Code"))
+        PatientSubject().setAadhaarNumber(aadhaarNumber.toString())
+        val intent = Intent(this, AadhaarQRScanActivity::class.java)
+        startActivity(intent)
+        finish()
+//        barcodeLauncher.launch(ScanOptions().setOrientationLocked(false).setPrompt("Scan Aadhaar QR Code"))
     }
 
     private val barcodeLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>(
