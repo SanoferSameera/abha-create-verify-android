@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.abha_create_verify_android.PatientSubject.Companion.patientSubject
 import com.example.abha_create_verify_android.utils.AadhaarPlainTextQrParser
 import com.example.abha_create_verify_android.utils.AadhaarSecureQrParser
 import com.example.abha_create_verify_android.utils.AadhaarXmlQrParser
+import com.example.abha_create_verify_android.utils.Patient
+import com.example.abha_create_verify_android.utils.Variables
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -19,6 +22,8 @@ class AadhaarQRScanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Variables.isCreateAbhaScan = intent.getBooleanExtra("isCreateAbhaScan", false)
+
         barcodeLauncher.launch(ScanOptions().setOrientationLocked(false).setPrompt("Scan Aadhaar QR Code"))
     }
 
@@ -27,7 +32,7 @@ class AadhaarQRScanActivity : AppCompatActivity() {
     ) { result: ScanIntentResult ->
         if (result.contents == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
-            finish()
+            handleBack()
         } else {
             Toast.makeText(this, "Scanned, Processing... ", Toast.LENGTH_SHORT)
                 .show()
@@ -35,6 +40,18 @@ class AadhaarQRScanActivity : AppCompatActivity() {
                 processQRData(it)
                 displayAadhaarInfo()
             }
+        }
+    }
+
+
+    private fun handleBack() {
+        if(Variables.isCreateAbhaScan) {
+            val intent = Intent(this, DemographicsManualOrQRScanActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else {
+            finish()
         }
     }
 
@@ -61,12 +78,19 @@ class AadhaarQRScanActivity : AppCompatActivity() {
     }
 
     private fun processQRData(scannedData: String) {
-        val aadhaarCardInfo = when {
-            isSecureQR(scannedData) -> AadhaarSecureQrParser(scannedData).getScannedAadhaarInfo()
-            isXmlBasedQR(scannedData) -> AadhaarXmlQrParser(scannedData).getAadhaarCardInfo()
-            else -> AadhaarPlainTextQrParser(scannedData).getAadhaarCardInfo()
+        if(!Variables.isCreateAbhaScan) patientSubject = Patient()
+        try {
+            val aadhaarCardInfo = when {
+                isSecureQR(scannedData) -> AadhaarSecureQrParser(scannedData).getScannedAadhaarInfo()
+                isXmlBasedQR(scannedData) -> AadhaarXmlQrParser(scannedData).getAadhaarCardInfo()
+                else -> AadhaarPlainTextQrParser(scannedData).getAadhaarCardInfo()
+            }
+            PatientSubject().setPatient(aadhaarCardInfo)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error Processing QR", Toast.LENGTH_SHORT).show()
         }
-        PatientSubject().setPatient(aadhaarCardInfo)
     }
 
 }

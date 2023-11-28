@@ -7,15 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.abha_create_verify_android.databinding.ActivityDemographicsManualOrQrscanBinding
-import com.example.abha_create_verify_android.utils.AadhaarPlainTextQrParser
-import com.example.abha_create_verify_android.utils.AadhaarSecureQrParser
-import com.example.abha_create_verify_android.utils.AadhaarXmlQrParser
 import com.example.abha_create_verify_android.utils.DialogUtils
-import com.journeyapps.barcodescanner.ScanContract
-import com.journeyapps.barcodescanner.ScanIntentResult
-import com.journeyapps.barcodescanner.ScanOptions
-import org.xml.sax.InputSource
-import javax.xml.parsers.DocumentBuilderFactory
 
 
 class DemographicsManualOrQRScanActivity : AppCompatActivity() {
@@ -61,7 +53,9 @@ class DemographicsManualOrQRScanActivity : AppCompatActivity() {
     private fun launchScanner() {
         PatientSubject().setAadhaarNumber(aadhaarNumber.toString())
         val intent = Intent(this, AadhaarQRScanActivity::class.java)
+        intent.putExtra("isCreateAbhaScan", true)
         startActivity(intent)
+        finish()
     }
 
     private fun moveToManualDemographic() {
