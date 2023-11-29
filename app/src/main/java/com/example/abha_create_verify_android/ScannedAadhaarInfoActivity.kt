@@ -27,7 +27,7 @@ class ScannedAadhaarInfoActivity : ReactActivity() {
 
         setSupportActionBar(binding.appBarLayout.includeToolbar.toolbarAbha)
         
-        supportActionBar?.title = resources.getString(R.string.create_abha)
+        supportActionBar?.title = resources.getString(R.string.aadhaar_info)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
